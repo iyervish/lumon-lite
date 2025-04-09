@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMON LITE™ - Your Work Self, Without The Surgery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto+Serif:opsz,wght@8..144,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module">
+        import '@material/web/button/filled-button.js';
+        import '@material/web/button/outlined-button.js';
+        import '@material/web/checkbox/checkbox.js';
+        import '@material/web/textfield/filled-text-field.js';
+        import '@material/web/textfield/outlined-text-field.js';
+        import '@material/web/elevation/elevation.js';
+        import '@material/web/icon/icon.js';
+        import '@material/web/slider/slider.js';
+        import '@material/web/dialog/dialog.js';
+    </script>
+</head>
+<body>
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="elevation-1">
+            <div class="cookie-content">
+                <h3>Personality Optimization Consent</h3>
+                <p>By continuing to use this site, you consent to the optimization of your personality for maximum corporate efficiency.</p>
+                <div class="cookie-buttons">
+                    <md-filled-button onclick="acceptCookies()">Accept Optimization</md-filled-button>
+                    <md-outlined-button onclick="rejectCookies()">Reject (Not Recommended)</md-outlined-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <nav>
+            <div class="logo">LUMON LITE™</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#product">Product</a>
+                <a href="#portal">Portal</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#about">About</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <h1>Split your life, not your brain</h1>
+                <p class="tagline">LUMON LITE™: Your Work Self, Without The Surgery</p>
+                <div class="cta-buttons">
+                    <md-filled-button>Get Started</md-filled-button>
+                    <md-outlined-button>Learn More</md-outlined-button>
+                </div>
+            </div>
+            <div id="transformation-animation" class="animation-container">
+                <!-- Animation will be rendered here -->
+            </div>
+        </section>
+
+        <section id="features" class="features-section">
+            <h2>How It Works</h2>
+            <div class="feature-cards">
+                <div class="elevation-1 feature-card">
+                    <h3>Non-Invasive Technology</h3>
+                    <p>Our patented personality splitting technology requires no surgical intervention.</p>
+                </div>
+                <div class="elevation-1 feature-card">
+                    <h3>Seamless Transition</h3>
+                    <p>Switch between work and home personalities with our innovative commute-based activation.</p>
+                </div>
+                <div class="elevation-1 feature-card">
+                    <h3>Memory Management</h3>
+                    <p>Advanced algorithms ensure complete separation of work and personal memories.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <h2>What Our Clients Say</h2>
+            <div class="testimonial-cards">
+                <div class="elevation-1 testimonial-card">
+                    <p>"My work self is so efficient, I got promoted twice in a week!"</p>
+                    <cite>- Mark S., Macrodata Refinement</cite>
+                </div>
+                <div class="elevation-1 testimonial-card">
+                    <p>"Finally, I can enjoy my waffle parties without work thoughts intruding."</p>
+                    <cite>- Irving B., Optics & Design</cite>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <p>LUMON LITE™ is not responsible for personality leakage, existential crises, or unexpected waffle parties.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>For emergencies, please contact your nearest Lumon Industries facility.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="main.js"></script>
+</body>
+</html> 

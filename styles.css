@@ -1,0 +1,385 @@
+:root {
+    --md-sys-color-primary: #00B4B4;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-surface: #1A1A1A;
+    --md-sys-color-background: #121212;
+    --md-sys-color-on-surface: #FFFFFF;
+    --md-sys-color-secondary: #00D1D1;
+    --md-sys-color-on-secondary: #000000;
+    --md-sys-color-error: #CF6679;
+    --md-sys-color-on-error: #000000;
+
+    --md-sys-typescale-display-large-font: 'Roboto Serif';
+    --md-sys-typescale-display-large-weight: 400;
+    --md-sys-typescale-display-large-size: 57px;
+    --md-sys-typescale-display-large-line-height: 64px;
+    --md-sys-typescale-display-large-tracking: -0.25px;
+
+    --md-sys-typescale-display-medium-font: 'Roboto Serif';
+    --md-sys-typescale-display-medium-weight: 400;
+    --md-sys-typescale-display-medium-size: 45px;
+    --md-sys-typescale-display-medium-line-height: 52px;
+    --md-sys-typescale-display-medium-tracking: 0px;
+
+    --md-sys-typescale-body-large-font: 'Roboto Flex';
+    --md-sys-typescale-body-large-weight: 400;
+    --md-sys-typescale-body-large-size: 16px;
+    --md-sys-typescale-body-large-line-height: 24px;
+    --md-sys-typescale-body-large-tracking: 0.5px;
+
+    --md-sys-typescale-body-medium-font: 'Roboto Flex';
+    --md-sys-typescale-body-medium-weight: 400;
+    --md-sys-typescale-body-medium-size: 14px;
+    --md-sys-typescale-body-medium-line-height: 20px;
+    --md-sys-typescale-body-medium-tracking: 0.25px;
+
+    --md-sys-typescale-label-large-font: 'Roboto Flex';
+    --md-sys-typescale-label-large-weight: 500;
+    --md-sys-typescale-label-large-size: 14px;
+    --md-sys-typescale-label-large-line-height: 20px;
+    --md-sys-typescale-label-large-tracking: 0.1px;
+}
+
+/* Typography Classes */
+.display-large {
+    font-family: var(--md-sys-typescale-display-large-font);
+    font-weight: var(--md-sys-typescale-display-large-weight);
+    font-size: var(--md-sys-typescale-display-large-size);
+    line-height: var(--md-sys-typescale-display-large-line-height);
+    letter-spacing: var(--md-sys-typescale-display-large-tracking);
+}
+
+.display-medium {
+    font-family: var(--md-sys-typescale-display-medium-font);
+    font-weight: var(--md-sys-typescale-display-medium-weight);
+    font-size: var(--md-sys-typescale-display-medium-size);
+    line-height: var(--md-sys-typescale-display-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+}
+
+.body-large {
+    font-family: var(--md-sys-typescale-body-large-font);
+    font-weight: var(--md-sys-typescale-body-large-weight);
+    font-size: var(--md-sys-typescale-body-large-size);
+    line-height: var(--md-sys-typescale-body-large-line-height);
+    letter-spacing: var(--md-sys-typescale-body-large-tracking);
+}
+
+.body-medium {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-weight: var(--md-sys-typescale-body-medium-weight);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    line-height: var(--md-sys-typescale-body-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+}
+
+.label-large {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    font-size: var(--md-sys-typescale-label-large-size);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--md-sys-typescale-body-large-font);
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-surface);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+h1 {
+    color: var(--md-sys-color-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.main-header {
+    background-color: var(--md-sys-color-surface);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--md-sys-color-primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--md-sys-color-on-surface);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--md-sys-color-primary);
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    background: linear-gradient(45deg, var(--md-sys-color-background), var(--md-sys-color-surface));
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-family: var(--md-sys-typescale-display-large-font);
+    font-weight: var(--md-sys-typescale-display-large-weight);
+    font-size: var(--md-sys-typescale-display-large-size);
+    line-height: var(--md-sys-typescale-display-large-line-height);
+    letter-spacing: var(--md-sys-typescale-display-large-tracking);
+    margin-bottom: 1rem;
+    color: var(--md-sys-color-primary);
+}
+
+.tagline {
+    font-family: var(--md-sys-typescale-display-medium-font);
+    font-weight: var(--md-sys-typescale-display-medium-weight);
+    font-size: var(--md-sys-typescale-display-medium-size);
+    line-height: var(--md-sys-typescale-display-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+    margin-bottom: 2rem;
+    color: var(--md-sys-color-on-surface);
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.animation-container {
+    width: 50%;
+    height: 400px;
+    background-color: rgba(0, 180, 180, 0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 180, 180, 0.2);
+}
+
+.human-figure {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 200px;
+    background: var(--md-sys-color-primary);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z'/%3E%3C/svg%3E") no-repeat center center;
+    mask-size: contain;
+    transition: transform 1s ease-in-out;
+}
+
+.transform-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, var(--md-sys-color-primary), transparent);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.transforming .human-figure {
+    transform: translate(-50%, -50%) scale(1.2) rotate(360deg);
+}
+
+.transforming .transform-overlay {
+    opacity: 0.3;
+}
+
+.features-section, .testimonials-section {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.feature-cards, .testimonial-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card, .testimonial-card {
+    padding: 1.5rem;
+    background-color: var(--md-sys-color-surface);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover, .testimonial-card:hover {
+    transform: translateY(-4px);
+}
+
+.elevation-1 {
+    box-shadow: 
+        0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+    font-family: var(--md-sys-typescale-display-medium-font);
+    font-weight: var(--md-sys-typescale-display-medium-weight);
+    font-size: var(--md-sys-typescale-display-medium-size);
+    line-height: var(--md-sys-typescale-display-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-display-medium-tracking);
+    color: var(--md-sys-color-primary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+footer {
+    background-color: var(--md-sys-color-surface);
+    padding: 2rem;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.cookie-consent {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    max-width: 400px;
+    z-index: 1000;
+}
+
+.cookie-content {
+    background-color: var(--md-sys-color-surface);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Binary code animation background */
+.binary-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    white-space: pre;
+    overflow: hidden;
+}
+
+/* Dialog styles */
+.dialog-content {
+    padding: 24px;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+.dialog-content h3 {
+    color: var(--md-sys-color-primary);
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.dialog-content p {
+    margin-bottom: 24px;
+}
+
+.feature-card h3, .testimonial-card h3 {
+    font-family: var(--md-sys-typescale-label-large-font);
+    font-weight: var(--md-sys-typescale-label-large-weight);
+    font-size: var(--md-sys-typescale-label-large-size);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking);
+    margin-bottom: 0.5rem;
+}
+
+.feature-card p, .testimonial-card p {
+    font-family: var(--md-sys-typescale-body-medium-font);
+    font-weight: var(--md-sys-typescale-body-medium-weight);
+    font-size: var(--md-sys-typescale-body-medium-size);
+    line-height: var(--md-sys-typescale-body-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-body-medium-tracking);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .animation-container {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .nav-links {
+        display: none;
+    }
+} 
