@@ -1,49 +1,3 @@
-// Binary code animation
-function createBinaryBackground() {
-    const binaryContainer = document.createElement('div');
-    binaryContainer.className = 'binary-bg';
-    document.body.appendChild(binaryContainer);
-
-    const binaryText = document.createElement('div');
-    binaryText.style.position = 'absolute';
-    binaryText.style.width = '100%';
-    binaryText.style.height = '100%';
-    binaryText.style.overflow = 'hidden';
-    binaryText.style.fontFamily = 'monospace';
-    binaryText.style.fontSize = '14px';
-    binaryText.style.lineHeight = '1.2';
-    binaryText.style.color = 'var(--md-sys-color-primary)';
-    binaryContainer.appendChild(binaryText);
-
-    function generateBinary() {
-        const rows = Math.ceil(window.innerHeight / 16);
-        const cols = Math.ceil(window.innerWidth / 10);
-        let binary = '';
-        for (let i = 0; i < rows; i++) {
-            for (let j = 0; j < cols; j++) {
-                binary += Math.random() > 0.5 ? '1' : '0';
-            }
-            binary += '\n';
-        }
-        return binary;
-    }
-
-    function updateBinary() {
-        binaryText.textContent = generateBinary();
-        binaryText.style.opacity = '0.15';
-        setTimeout(() => {
-            binaryText.style.transition = 'opacity 2s ease-in-out';
-            binaryText.style.opacity = '0.05';
-        }, 100);
-    }
-
-    updateBinary();
-    setInterval(updateBinary, 3000);
-
-    // Update on resize
-    window.addEventListener('resize', updateBinary);
-}
-
 // Transformation animation
 function createTransformationAnimation() {
     const container = document.getElementById('transformation-animation');
@@ -287,8 +241,148 @@ function showActivationSuccess(plan) {
     dialog.showModal();
 }
 
-// Initialize Material Design components
+// Animate metrics when they come into view
+function initializeMetrics() {
+    const metricsSection = document.querySelector('.metrics-section');
+    const progressBars = metricsSection.querySelectorAll('md-linear-progress');
+    const metricValues = metricsSection.querySelectorAll('.metric-value');
+    
+    // Create an intersection observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Animate progress bars
+                progressBars.forEach(bar => {
+                    const value = parseFloat(bar.getAttribute('value'));
+                    bar.value = 0;
+                    setTimeout(() => {
+                        bar.value = value;
+                    }, 100);
+                });
+                
+                // Animate metric values
+                metricValues.forEach(metric => {
+                    const value = parseFloat(metric.textContent);
+                    let start = 0;
+                    const duration = 2000;
+                    const startTime = performance.now();
+                    
+                    function updateValue(currentTime) {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        
+                        const currentValue = value * progress;
+                        metric.textContent = value < 1 ? 
+                            currentValue.toFixed(2) + '%' :
+                            Math.round(currentValue) + '%';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(updateValue);
+                        }
+                    }
+                    
+                    requestAnimationFrame(updateValue);
+                });
+                
+                // Disconnect the observer after animation
+                observer.disconnect();
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+    
+    observer.observe(metricsSection);
+}
+
+// Initialize personality portal
+function initializePersonalityPortal() {
+    // Initialize trait options
+    const traitOptions = document.querySelectorAll('.trait-option');
+    traitOptions.forEach(option => {
+        const checkbox = option.querySelector('md-checkbox');
+        option.addEventListener('click', () => {
+            checkbox.checked = !checkbox.checked;
+            option.classList.toggle('selected', checkbox.checked);
+        });
+    });
+
+    // Initialize productivity settings
+    const settingItems = document.querySelectorAll('.setting-item');
+    settingItems.forEach(item => {
+        const slider = item.querySelector('md-slider');
+        const label = item.querySelector('label');
+        
+        // Add animation when value changes
+        slider.addEventListener('input', () => {
+            item.classList.add('setting-updated');
+            setTimeout(() => item.classList.remove('setting-updated'), 300);
+            
+            // Update background intensity based on value
+            const value = slider.value / 100;
+            item.style.background = `color-mix(in srgb, var(--md-sys-color-surface-container-highest) ${value * 100}%, var(--md-sys-color-surface-container))`;
+        });
+        
+        // Initialize state
+        const initialValue = slider.value / 100;
+        item.style.background = `color-mix(in srgb, var(--md-sys-color-surface-container-highest) ${initialValue * 100}%, var(--md-sys-color-surface-container))`;
+    });
+
+    // Add animation keyframes for settings
+    const style = document.createElement('style');
+    style.textContent = `
+    @keyframes settingUpdate {
+        0% { transform: scale(1.02); }
+        50% { transform: scale(0.98); }
+        100% { transform: scale(1); }
+    }
+
+    .setting-updated {
+        animation: settingUpdate 0.3s ease-out;
+    }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize memory settings
+    const memoryItems = document.querySelectorAll('.memory-item');
+    memoryItems.forEach(item => {
+        const checkbox = item.querySelector('md-checkbox');
+        const label = item.querySelector('label');
+        
+        // Make the entire item clickable
+        item.addEventListener('click', (e) => {
+            if (e.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+                
+                // Add animation class
+                item.classList.add('memory-updated');
+                setTimeout(() => item.classList.remove('memory-updated'), 300);
+                
+                // Update background based on state
+                updateMemoryItemState(item, checkbox.checked);
+            }
+        });
+        
+        // Initialize state
+        updateMemoryItemState(item, checkbox.checked);
+    });
+
+    function updateMemoryItemState(item, isChecked) {
+        if (isChecked) {
+            item.style.background = 'var(--md-sys-color-surface-container-highest)';
+            item.style.borderColor = 'var(--md-sys-color-primary)';
+        } else {
+            item.style.background = 'var(--md-sys-color-surface-container)';
+            item.style.borderColor = 'var(--md-sys-color-outline-variant)';
+        }
+    }
+}
+
+// Call initialization when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    initializeMetrics();
+    initializePersonalityPortal();
+
     // Import Material Web components
     import('@material/web/all.js').then(() => {
         // Initialize any custom component behavior here
@@ -318,15 +412,55 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.elevation-1').forEach(card => {
             card.addEventListener('mouseenter', () => {
                 card.style.transform = 'translateY(-4px)';
-                card.style.transition = 'transform 0.3s ease';
+                card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)';
             });
+
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
             });
         });
 
         // Initialize animations and functionality
-        createBinaryBackground();
         createTransformationAnimation();
+
+        // Initialize benefit card actions
+        document.querySelectorAll('.benefit-action').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.benefit-card');
+                const title = card.querySelector('h3').textContent;
+                
+                const dialog = document.createElement('dialog');
+                dialog.className = 'benefit-dialog elevation-1';
+                dialog.innerHTML = `
+                    <div class="dialog-content">
+                        <h3>${title}</h3>
+                        <p>Processing your request...</p>
+                        <div class="dialog-progress">
+                            <md-linear-progress value="0"></md-linear-progress>
+                        </div>
+                        <div class="dialog-actions">
+                            <md-filled-button onclick="this.closest('dialog').close()">Close</md-filled-button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(dialog);
+                dialog.showModal();
+
+                const progressBar = dialog.querySelector('md-linear-progress');
+                let progress = 0;
+                
+                const interval = setInterval(() => {
+                    progress += 2;
+                    progressBar.value = progress / 100;
+                    
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        dialog.querySelector('p').textContent = 'Request processed successfully!';
+                    }
+                }, 20);
+            });
+        });
     }
 }); 
