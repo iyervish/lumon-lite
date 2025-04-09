@@ -162,35 +162,175 @@ nav {
 
 /* Hero Section */
 .hero-section {
-    min-height: calc(100vh - 64px);
+    min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
-    padding: 2rem;
-    background: var(--gradient-hero);
+    padding: 6rem 2rem;
+    margin-top: 0;
 }
 
 .hero-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    width: 100%;
+    padding: 0 2rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: center;
+    gap: 4rem;
 }
 
 .text-content {
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 900px;
 }
 
 .hero-content h2 {
-    font-size: 3.5rem;
-    margin-bottom: 2rem;
-    background: var(--text-gradient);
+    font-size: 4.5rem;
+    margin: 0;
+    color: transparent;
+    background: linear-gradient(135deg, 
+        var(--md-sys-color-primary) 0%, 
+        var(--md-sys-color-secondary) 100%);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    font-family: var(--md-sys-typescale-display-large-font);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+    max-width: 820px;
+}
+
+.animation-container {
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 16/9;
+    background: rgba(0, 229, 255, 0.03);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 229, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 229, 255, 0.1);
+    backdrop-filter: blur(8px);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.animation-container:hover {
+    transform: perspective(1000px) rotateY(-2deg) translateY(-8px);
+}
+
+.abstract-shape {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(135deg, 
+        var(--md-sys-color-primary) 0%, 
+        var(--md-sys-color-secondary) 100%);
+    border-radius: 50%;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.abstract-shape::before,
+.abstract-shape::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.7;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.abstract-shape::before {
+    width: 160px;
+    height: 160px;
+    top: -30px;
+    left: -30px;
+    filter: blur(2px);
+}
+
+.abstract-shape::after {
+    width: 140px;
+    height: 140px;
+    bottom: -20px;
+    right: -20px;
+    filter: blur(4px);
+}
+
+.transform-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+        rgba(0, 229, 255, 0.2) 0%,
+        rgba(255, 64, 129, 0.1) 50%,
+        transparent 100%);
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transforming .abstract-shape {
+    transform: translate(-50%, -50%) scale(1.1) rotate(180deg);
+    border-radius: 25%;
+}
+
+.transforming .abstract-shape::before {
+    transform: translate(60px, 60px) scale(0.8);
+    opacity: 0.5;
+}
+
+.transforming .abstract-shape::after {
+    transform: translate(-40px, -40px) scale(1.2);
+    opacity: 0.3;
+}
+
+.transforming .transform-overlay {
+    opacity: 1;
+}
+
+@media (max-width: 1024px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .text-content {
+        margin: 0 auto;
+    }
+
+    .animation-container {
+        margin: 0 auto;
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 4rem 1rem;
+    }
+
+    .hero-content h2 {
+        font-size: 2.75rem;
+    }
+
+    .hero-description {
+        font-size: 1.125rem;
+    }
 }
 
 /* Feature Cards */

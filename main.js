@@ -3,20 +3,21 @@ function createTransformationAnimation() {
     const container = document.getElementById('transformation-animation');
     if (!container) return;
 
-    const figure = document.createElement('div');
-    figure.className = 'human-figure';
-    container.appendChild(figure);
-
-    const overlay = document.createElement('div');
-    overlay.className = 'transform-overlay';
-    container.appendChild(overlay);
-
-    setInterval(() => {
+    // Start the animation loop immediately
+    function animate() {
         container.classList.add('transforming');
+        
+        // Remove the transforming class after 2 seconds
         setTimeout(() => {
             container.classList.remove('transforming');
         }, 2000);
-    }, 4000);
+    }
+
+    // Run animation immediately
+    animate();
+
+    // Set up continuous loop every 4 seconds
+    setInterval(animate, 4000);
 }
 
 // Progress bar animation
