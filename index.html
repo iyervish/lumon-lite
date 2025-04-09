@@ -7,35 +7,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto+Serif:opsz,wght@8..144,100..900&display=swap" rel="stylesheet">
+    
+    <!-- Material Design Web Components -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <script type="module">
-        import '@material/web/button/filled-button.js';
-        import '@material/web/button/outlined-button.js';
-        import '@material/web/button/text-button.js';
-        import '@material/web/checkbox/checkbox.js';
-        import '@material/web/switch/switch.js';
-        import '@material/web/textfield/filled-text-field.js';
-        import '@material/web/textfield/outlined-text-field.js';
-        import '@material/web/radio/radio.js';
-        import '@material/web/icon/icon.js';
-        import '@material/web/progress/linear-progress.js';
-        import '@material/web/elevation/elevation.js';
+        import '@material/web/all.js';
+        import { tokens } from '@material/web/tokens/all.js';
+        
+        // Apply theme tokens
+        document.adoptedStyleSheets = [tokens];
+        document.documentElement.style.setProperty('--md-sys-color-primary', '#FF4081');
+        document.documentElement.style.setProperty('--md-sys-color-surface', '#1E1E2F');
+        document.documentElement.style.setProperty('--md-sys-color-secondary', '#00E5FF');
+        document.documentElement.style.setProperty('--md-sys-color-tertiary', '#B4FF39');
+        document.documentElement.style.setProperty('--md-sys-color-error', '#FF3D00');
     </script>
-    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Your styles -->
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div class="cookie-consent" id="cookieConsent">
-        <div class="elevation-1">
-            <div class="cookie-content">
-                <h3>Personality Optimization Consent</h3>
-                <p>By continuing to use this site, you consent to the optimization of your personality for maximum corporate efficiency.</p>
-                <div class="cookie-buttons">
-                    <md-filled-button onclick="acceptCookies()">Accept Optimization</md-filled-button>
-                    <md-outlined-button onclick="rejectCookies()">Reject (Not Recommended)</md-outlined-button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <header class="main-header">
         <nav>
             <div class="logo">LUMON LITE™</div>
@@ -52,15 +43,26 @@
     <main>
         <section id="hero" class="hero-section">
             <div class="hero-content">
-                <h1>Split your life, not your brain</h1>
-                <p class="tagline">LUMON LITE™: Your Work Self, Without The Surgery</p>
-                <div class="cta-buttons">
-                    <md-filled-button onclick="startOptimization()">Begin Optimization</md-filled-button>
-                    <md-outlined-button onclick="learnMore()">Learn More</md-outlined-button>
+                <div class="text-content">
+                    <h2>Split your life, not your brain</h2>
+                    <div class="cta-buttons">
+                        <md-filled-button onclick="startOptimization()">ACTIVATE YOUR INNIE</md-filled-button>
+                        <md-outlined-button onclick="learnMore()">LEARN MORE</md-outlined-button>
+                    </div>
+                </div>
+                <div id="transformation-animation" class="animation-container">
+                    <div class="human-figure"></div>
+                    <div class="transform-overlay"></div>
                 </div>
             </div>
-            <div id="transformation-animation" class="animation-container">
-                <!-- Animation will be rendered here -->
+        </section>
+
+        <section id="welcome" class="welcome-section">
+            <div class="welcome-content">
+                <h2>Welcome to a New Era</h2>
+                <p>Welcome to a new era of work-life balance. At LUMON LITE™, we understand that maintaining separate identities for your professional and personal lives is essential in today's demanding corporate landscape.</p>
+                <p>While our competitors might suggest invasive neural implants, we've developed a proprietary, non-surgical solution that allows you to cleanly separate your work self ("innie") from your home self ("outie") through our patented cognitive compartmentalization protocols.</p>
+                <p>Say goodbye to bringing work stress home or home distractions to work. With LUMON LITE™, what happens at the office stays at the office—literally.</p>
             </div>
         </section>
 
@@ -74,64 +76,120 @@
 
         <section id="features" class="features-section">
             <h2>How It Works</h2>
+            <p class="section-description">LUMON LITE™: Your Work Self, Without The Surgery</p>
             <div class="feature-cards">
                 <div class="elevation-1 feature-card">
                     <h3>Non-Invasive Technology</h3>
                     <p>Our patented personality splitting technology requires no surgical intervention.</p>
-                    <div class="feature-control">
-                        <md-switch id="techSwitch"></md-switch>
-                        <label>Enable Neural Interface</label>
-                    </div>
                 </div>
                 <div class="elevation-1 feature-card">
                     <h3>Seamless Transition</h3>
                     <p>Switch between work and home personalities with our innovative commute-based activation.</p>
-                    <div class="feature-control">
-                        <div class="radio-group">
-                            <md-radio name="transition" checked></md-radio>
-                            <label>Auto</label>
-                            <md-radio name="transition"></md-radio>
-                            <label>Manual</label>
-                        </div>
-                    </div>
                 </div>
                 <div class="elevation-1 feature-card">
                     <h3>Memory Management</h3>
                     <p>Advanced algorithms ensure complete separation of work and personal memories.</p>
-                    <div class="memory-slider">
-                        <label>Memory Partition Level</label>
-                        <md-linear-progress value="0.8"></md-linear-progress>
-                    </div>
                 </div>
             </div>
         </section>
 
         <section id="personality-portal" class="portal-section">
-            <h2>Quick Personality Assessment</h2>
-            <div class="portal-form elevation-1">
-                <md-outlined-text-field
-                    label="Current Job Title"
-                    helper="We'll optimize your work personality accordingly">
-                </md-outlined-text-field>
+            <h2>Design Your Perfect Work Self</h2>
+            <div class="portal-content elevation-1">
+                <p class="portal-description">The LUMON LITE™ Personality Creation Portal allows you to customize your innie to precise specifications. Our advanced algorithm will help you craft the ideal work personality optimized for your specific corporate environment.</p>
                 
-                <div class="compliance-level">
-                    <label>Desired Compliance Level:</label>
-                    <div class="radio-group">
-                        <md-radio name="compliance"></md-radio>
-                        <label>Slightly Rebellious</label>
-                        <md-radio name="compliance" checked></md-radio>
-                        <label>Perfectly Balanced</label>
-                        <md-radio name="compliance"></md-radio>
-                        <label>Model Employee</label>
+                <div class="portal-steps">
+                    <div class="portal-step elevation-1">
+                        <h3>Step 1: Core Traits Assessment</h3>
+                        <p>Answer our 50-question assessment to determine your innie's baseline personality traits. Choose from templates including:</p>
+                        <div class="trait-options">
+                            <md-checkbox></md-checkbox>
+                            <label>The Diligent Processor</label>
+                            <p class="trait-description">Finds joy in repetitive tasks and has an uncanny ability to detect patterns in meaningless data</p>
+                            
+                            <md-checkbox></md-checkbox>
+                            <label>The Compliance Champion</label>
+                            <p class="trait-description">Embraces corporate protocols with enthusiasm and reports deviations promptly</p>
+                            
+                            <md-checkbox></md-checkbox>
+                            <label>The Mild Innovator</label>
+                            <p class="trait-description">Suggests improvements within acceptable parameters while never questioning the larger purpose</p>
+                            
+                            <md-checkbox></md-checkbox>
+                            <label>The Team Anchor</label>
+                            <p class="trait-description">Maintains group morale while subtly discouraging too much interpersonal bonding</p>
+                        </div>
+                    </div>
+
+                    <div class="portal-step elevation-1">
+                        <h3>Step 2: Customize Productivity Settings</h3>
+                        <div class="productivity-settings">
+                            <div class="setting-item">
+                                <label>Focus Intensity</label>
+                                <md-linear-progress value="0.7"></md-linear-progress>
+                                <span class="setting-value">Set from "Maintains basic competence" to "Obsessive dedication"</span>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Corporate Loyalty</label>
+                                <md-linear-progress value="0.8"></md-linear-progress>
+                                <span class="setting-value">Adjust from "Will not actively sabotage company" to "Would sacrifice personal well-being for quarterly goals"</span>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Curiosity Suppression</label>
+                                <md-linear-progress value="0.9"></md-linear-progress>
+                                <span class="setting-value">Control how often your innie questions the nature of their work</span>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Break Frequency</label>
+                                <md-linear-progress value="0.3"></md-linear-progress>
+                                <span class="setting-value">Determine how often your innie feels entitled to brief pauses (Recommended setting: Minimal)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portal-step elevation-1">
+                        <h3>Step 3: Memory Management</h3>
+                        <div class="memory-settings">
+                            <div class="memory-item">
+                                <md-checkbox checked></md-checkbox>
+                                <label>Basic skills and language</label>
+                                <span class="setting-note">Recommended ON</span>
+                            </div>
+                            
+                            <div class="memory-item">
+                                <md-checkbox></md-checkbox>
+                                <label>Family connections</label>
+                                <span class="setting-note">Recommended OFF</span>
+                            </div>
+                            
+                            <div class="memory-item">
+                                <md-checkbox></md-checkbox>
+                                <label>Personal ambitions</label>
+                                <span class="setting-note">Recommended OFF</span>
+                            </div>
+                            
+                            <div class="memory-item">
+                                <md-checkbox checked></md-checkbox>
+                                <label>Awareness of outside world</label>
+                                <span class="setting-note">Recommended MINIMAL</span>
+                            </div>
+                            
+                            <div class="memory-item">
+                                <md-checkbox></md-checkbox>
+                                <label>Understanding of time concepts beyond workday</label>
+                                <span class="setting-note">Optional</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="waffle-preferences">
-                    <md-checkbox></md-checkbox>
-                    <label>Opt-in for quarterly waffle parties</label>
+                <div class="portal-cta">
+                    <md-filled-button onclick="previewPersonality()">Preview Your Innie</md-filled-button>
+                    <p class="waffle-note">Preview your innie now and receive a complimentary digital waffle party!</p>
                 </div>
-
-                <md-filled-button onclick="submitAssessment()">Generate Work Personality</md-filled-button>
             </div>
         </section>
 
@@ -139,21 +197,280 @@
             <h2>What Our Clients Say</h2>
             <div class="testimonial-cards">
                 <div class="elevation-1 testimonial-card">
-                    <p>"My work self is so efficient, I got promoted twice in a week!"</p>
-                    <cite>- Mark S., Macrodata Refinement</cite>
+                    <p>"I used to worry about work 24/7. Now my outie doesn't even remember what I do for a living! Five stars!"</p>
+                    <cite>- Marcus P., Data Refiner</cite>
+                    <div class="satisfaction">
+                        <label>Satisfaction Level:</label>
+                        <md-linear-progress value="1.0"></md-linear-progress>
+                    </div>
+                </div>
+                <div class="elevation-1 testimonial-card">
+                    <p>"My performance reviews improved 78% after activating my innie. My work self has no memory of my three children or impending divorce, allowing for unparalleled focus!"</p>
+                    <cite>- Helena S., Macrodata Analyst</cite>
                     <div class="satisfaction">
                         <label>Satisfaction Level:</label>
                         <md-linear-progress value="0.95"></md-linear-progress>
                     </div>
                 </div>
                 <div class="elevation-1 testimonial-card">
-                    <p>"Finally, I can enjoy my waffle parties without work thoughts intruding."</p>
-                    <cite>- Irving B., Optics & Design</cite>
+                    <p>"I'm writing this as my outie. Apparently I have a job? They deposit money in my account every two weeks so I assume my innie is doing well!"</p>
+                    <cite>- Trevor K., Something in Corporate</cite>
                     <div class="satisfaction">
                         <label>Satisfaction Level:</label>
-                        <md-linear-progress value="0.88"></md-linear-progress>
+                        <md-linear-progress value="0.90"></md-linear-progress>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="how-it-works-section">
+            <h2>How LUMON LITE™ Works</h2>
+            <div class="how-it-works-content">
+                <p>Unlike traditional severance procedures requiring invasive brain surgery, LUMON LITE™ utilizes a combination of proprietary mnemonic conditioning, cognitive restructuring, and our patented Personality Partition Protocol (PPP™).</p>
+                <p>Each morning as you approach your workplace, simply activate the LUMON LITE™ app on your company-issued device. Our revolutionary technology creates a seamless transition between your outie and innie personalities. When you leave work, the app triggers a reverse transition, leaving your outie with no recollection of your workday beyond a general sense of accomplishment.</p>
+                <p class="disclaimer">Note: LUMON LITE™ is not technically mind control, as clarified in subsection 247.B of our user agreement.</p>
+            </div>
+        </section>
+
+        <section id="comparison" class="comparison-section">
+            <h2>Our Technology vs. Surgical Severance</h2>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>LUMON LITE™</th>
+                            <th>Surgical Severance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Installation</td>
+                            <td><span class="feature-highlight">Non-invasive app download</span></td>
+                            <td>Brain surgery</td>
+                        </tr>
+                        <tr>
+                            <td>Reversibility</td>
+                            <td><span class="feature-highlight">Fully reversible</span></td>
+                            <td>Permanent alteration</td>
+                        </tr>
+                        <tr>
+                            <td>Transition Time</td>
+                            <td><span class="feature-highlight">45 seconds</span></td>
+                            <td>Several weeks of recovery</td>
+                        </tr>
+                        <tr>
+                            <td>Side Effects</td>
+                            <td><span class="feature-highlight">Occasional mild disorientation</span></td>
+                            <td>Existential dread, identity crisis</td>
+                        </tr>
+                        <tr>
+                            <td>Memory Separation</td>
+                            <td><span class="feature-highlight">99.7% effective*</span></td>
+                            <td>100% effective</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td><span class="feature-highlight">Affordable monthly subscription</span></td>
+                            <td>Significant medical expense</td>
+                        </tr>
+                        <tr>
+                            <td>Legal Status</td>
+                            <td><span class="feature-highlight">Technically legal in most jurisdictions</span></td>
+                            <td>Legally questionable</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="table-note">*Based on internal testing results. Individual results may vary.</p>
+            </div>
+            <div class="comparison-cta">
+                <md-filled-button onclick="selectPlan('plus')">Choose LUMON LITE™</md-filled-button>
+                <p class="comparison-tagline">The smarter choice for personality partitioning</p>
+            </div>
+        </section>
+
+        <section id="benefits" class="benefits-section">
+            <h2>Perks of Personality Partitioning</h2>
+            <div class="benefits-grid">
+                <div class="elevation-1 benefit-card">
+                    <h3>Waffle Party Eligibility</h3>
+                    <p>Top performers receive exclusive access to our legendary waffle parties, complete with all four tempers.</p>
+                    <div class="benefit-metric">
+                        <label>Current Quarter Status</label>
+                        <md-linear-progress value="0.75"></md-linear-progress>
+                    </div>
+                </div>
+                <div class="elevation-1 benefit-card">
+                    <h3>Music Dance Experience</h3>
+                    <p>Achieve perfect work-life harmony through our patented MDE sessions, now available remotely.</p>
+                    <div class="benefit-metric">
+                        <label>Dance Readiness</label>
+                        <md-linear-progress value="0.92"></md-linear-progress>
+                    </div>
+                </div>
+                <div class="elevation-1 benefit-card">
+                    <h3>Finger Traps</h3>
+                    <p>Earn coveted finger trap rewards for exceptional refinement performance.</p>
+                    <div class="benefit-metric">
+                        <label>Finger Trap Inventory</label>
+                        <md-linear-progress value="0.33"></md-linear-progress>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="metrics" class="metrics-section">
+            <h2>Work-Life Metrics</h2>
+            <div class="metrics-container elevation-1">
+                <div class="metric-item">
+                    <h3>Innies Satisfaction Index</h3>
+                    <div class="metric-value">98%</div>
+                    <p>Your work self's contentment level</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Outie Memory Bleed</h3>
+                    <div class="metric-value">0.01%</div>
+                    <p>Cross-personality memory transfer rate</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Defiant Jazz Factor</h3>
+                    <div class="metric-value">87%</div>
+                    <p>Workplace rhythm compliance</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="compliance" class="compliance-notice">
+            <div class="notice-content elevation-1">
+                <h3>Break Room Notice</h3>
+                <p>The Break Room is a place of growth and reflection. Attendance is mandatory when psychological realignment is deemed necessary by your supervisor.</p>
+                <div class="notice-acknowledgment">
+                    <md-checkbox></md-checkbox>
+                    <label>I understand the purpose of psychological realignment</label>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="pricing-section">
+            <h2>Select Your Perfect Partition Plan</h2>
+            <div class="pricing-cards">
+                <div class="pricing-card elevation-1">
+                    <h3>INNIE BASIC</h3>
+                    <div class="price">$99<span>/month</span></div>
+                    <ul class="features-list">
+                        <li>Monday-Friday personality partition</li>
+                        <li>Basic skills retention</li>
+                        <li>12-hour maximum daily activation</li>
+                        <li>Standard compliance protocols</li>
+                        <li>Limited access to personal memories</li>
+                        <li>Automated commute transitions</li>
+                        <li>Weekend recovery period</li>
+                    </ul>
+                    <md-filled-button onclick="selectPlan('basic')">Select Plan</md-filled-button>
+                </div>
+
+                <div class="pricing-card elevation-1 featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <h3>INNIE PLUS</h3>
+                    <div class="price">$199<span>/month</span></div>
+                    <ul class="features-list">
+                        <li>All Basic features</li>
+                        <li>Emergency Weekend Work Mode</li>
+                        <li>Enhanced performance metrics</li>
+                        <li>Advanced compliance programming</li>
+                        <li>Completely compartmentalized personal emotions</li>
+                        <li>Premium productivity incentives</li>
+                        <li>Quarterly digital waffle party access</li>
+                    </ul>
+                    <md-filled-button onclick="selectPlan('plus')">Select Plan</md-filled-button>
+                </div>
+
+                <div class="pricing-card elevation-1">
+                    <h3>DEPARTMENT HEAD</h3>
+                    <div class="price">$399<span>/month</span></div>
+                    <ul class="features-list">
+                        <li>All Plus features</li>
+                        <li>Leadership trait enhancement</li>
+                        <li>Natural micromanagement capabilities</li>
+                        <li>Loyalty to corporate hierarchy</li>
+                        <li>Reduced empathy toward subordinates</li>
+                        <li>Ability to implement policies without moral consideration</li>
+                        <li>Priority handshake with CEO's digital avatar</li>
+                        <li>Access to exclusive MDR refinement simulation games</li>
+                    </ul>
+                    <md-filled-button onclick="selectPlan('department')">Select Plan</md-filled-button>
+                </div>
+            </div>
+            <p class="pricing-note">All plans include our standard Memory Wipe feature that activates during your commute, ensuring complete separation between work and personal life.</p>
+            <p class="pricing-note">Corporate bulk licensing available. Contact our sales department for organizations with 50+ employees.</p>
+        </section>
+
+        <section id="about" class="about-section">
+            <h2>Our Story</h2>
+            <div class="about-content elevation-1">
+                <p>LUMON LITE™ was founded in 2022 by former employees of a large, mysterious corporation specializing in data refinement. Our founders recognized that while complete severance offered theoretical benefits, a non-surgical alternative could reach a wider market while avoiding certain ethical and legal complications.</p>
+                <p>Today, we're proud to serve over 100,000 employees across various industries who enjoy the benefits of compartmentalized work-life existence without the inconvenience of brain surgery.</p>
+            </div>
+
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card elevation-1">
+                    <h3>Purposeful Obscurity</h3>
+                    <p>We believe employees function best when unencumbered by understanding the larger purpose of their work.</p>
+                </div>
+                <div class="value-card elevation-1">
+                    <h3>Selective Transparency</h3>
+                    <p>We share exactly the information required—nothing more, nothing less.</p>
+                </div>
+                <div class="value-card elevation-1">
+                    <h3>Measured Camaraderie</h3>
+                    <p>We encourage workplace relationships that remain productive without becoming too intimate or inquisitive.</p>
+                </div>
+                <div class="value-card elevation-1">
+                    <h3>Refined Efficiency</h3>
+                    <p>We value completion of tasks over understanding their context or impact.</p>
+                </div>
+                <div class="value-card elevation-1">
+                    <h3>Compartmentalized Innovation</h3>
+                    <p>We welcome improvements that don't disrupt established procedures.</p>
+                </div>
+            </div>
+
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card elevation-1">
+                    <h3>Eleanor Cobel, CEO</h3>
+                    <p>"At LUMON LITE™, we're not just creating better employees; we're creating simpler lives."</p>
+                </div>
+                <div class="team-card elevation-1">
+                    <h3>Dylan Haggerty, Chief Innovation Officer</h3>
+                    <p>"Our technology has evolved beyond the need for surgical intervention while maintaining the core benefit: freedom from yourself."</p>
+                </div>
+                <div class="team-card elevation-1">
+                    <h3>Irving Burk, Director of Compliance</h3>
+                    <p>"Order through structure, peace through compartmentalization."</p>
+                </div>
+                <div class="team-card elevation-1">
+                    <h3>Mark S., Director of Customer Experience</h3>
+                    <p>"I don't remember applying for this position, but I'm told I excel at it."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="legal" class="legal-section">
+            <h2>Important Information</h2>
+            <div class="legal-content elevation-1">
+                <p>LUMON LITE™ is a personality modification service intended for workplace optimization purposes only. By using our service, you acknowledge and accept the following:</p>
+                <ul class="legal-list">
+                    <li>LUMON LITE™ does not physically alter your brain but may significantly impact your perception of self, time, purpose, and memory.</li>
+                    <li>We cannot guarantee complete personality separation. Leakage rate of approximately 0.3% is considered normal and not grounds for refund.</li>
+                    <li>Side effects may include: mild disorientation during transition periods, unexplained emotional responses to office supplies, random tears when eating waffles, increased tolerance for fluorescent lighting, decreased interest in life outside work, and occasional existential crises when viewing corporate art.</li>
+                    <li>LUMON LITE™ is not responsible for actions taken by your innie that may impact your outie's personal or professional reputation.</li>
+                    <li>The "waffle party" is digital only. Any expectations of physical waffle parties are not the responsibility of LUMON LITE™.</li>
+                    <li>This service is fiction-adjacent and meant for entertainment purposes. Any resemblance to actual brain-altering corporate technologies is purely coincidental... for now.</li>
+                </ul>
+                <p class="legal-note">By activating LUMON LITE™, you agree that you have read, understood, and consented to these terms. If you did not read these terms, your innie still consents on your behalf.</p>
+                <p class="legal-note">Please enjoy all experiences equally.</p>
             </div>
         </section>
     </main>
