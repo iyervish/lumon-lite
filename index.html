@@ -7,18 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..900&family=Roboto+Serif:opsz,wght@8..144,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
     <script type="module">
         import '@material/web/button/filled-button.js';
         import '@material/web/button/outlined-button.js';
+        import '@material/web/button/text-button.js';
         import '@material/web/checkbox/checkbox.js';
+        import '@material/web/switch/switch.js';
         import '@material/web/textfield/filled-text-field.js';
         import '@material/web/textfield/outlined-text-field.js';
-        import '@material/web/elevation/elevation.js';
+        import '@material/web/radio/radio.js';
         import '@material/web/icon/icon.js';
-        import '@material/web/slider/slider.js';
-        import '@material/web/dialog/dialog.js';
+        import '@material/web/progress/linear-progress.js';
+        import '@material/web/elevation/elevation.js';
     </script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="cookie-consent" id="cookieConsent">
@@ -38,11 +40,11 @@
         <nav>
             <div class="logo">LUMON LITE™</div>
             <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#product">Product</a>
-                <a href="#portal">Portal</a>
-                <a href="#pricing">Pricing</a>
-                <a href="#about">About</a>
+                <md-text-button href="#home">Home</md-text-button>
+                <md-text-button href="#product">Product</md-text-button>
+                <md-text-button href="#portal">Portal</md-text-button>
+                <md-text-button href="#pricing">Pricing</md-text-button>
+                <md-text-button href="#about">About</md-text-button>
             </div>
         </nav>
     </header>
@@ -53,12 +55,20 @@
                 <h1>Split your life, not your brain</h1>
                 <p class="tagline">LUMON LITE™: Your Work Self, Without The Surgery</p>
                 <div class="cta-buttons">
-                    <md-filled-button>Get Started</md-filled-button>
-                    <md-outlined-button>Learn More</md-outlined-button>
+                    <md-filled-button onclick="startOptimization()">Begin Optimization</md-filled-button>
+                    <md-outlined-button onclick="learnMore()">Learn More</md-outlined-button>
                 </div>
             </div>
             <div id="transformation-animation" class="animation-container">
                 <!-- Animation will be rendered here -->
+            </div>
+        </section>
+
+        <section id="optimization-progress" class="progress-section" style="display: none;">
+            <h2>Personality Optimization Progress</h2>
+            <div class="progress-container">
+                <md-linear-progress id="optimizationProgress" value="0"></md-linear-progress>
+                <p id="progressStatus">Initializing personality split...</p>
             </div>
         </section>
 
@@ -68,15 +78,60 @@
                 <div class="elevation-1 feature-card">
                     <h3>Non-Invasive Technology</h3>
                     <p>Our patented personality splitting technology requires no surgical intervention.</p>
+                    <div class="feature-control">
+                        <md-switch id="techSwitch"></md-switch>
+                        <label>Enable Neural Interface</label>
+                    </div>
                 </div>
                 <div class="elevation-1 feature-card">
                     <h3>Seamless Transition</h3>
                     <p>Switch between work and home personalities with our innovative commute-based activation.</p>
+                    <div class="feature-control">
+                        <div class="radio-group">
+                            <md-radio name="transition" checked></md-radio>
+                            <label>Auto</label>
+                            <md-radio name="transition"></md-radio>
+                            <label>Manual</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="elevation-1 feature-card">
                     <h3>Memory Management</h3>
                     <p>Advanced algorithms ensure complete separation of work and personal memories.</p>
+                    <div class="memory-slider">
+                        <label>Memory Partition Level</label>
+                        <md-linear-progress value="0.8"></md-linear-progress>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="personality-portal" class="portal-section">
+            <h2>Quick Personality Assessment</h2>
+            <div class="portal-form elevation-1">
+                <md-outlined-text-field
+                    label="Current Job Title"
+                    helper="We'll optimize your work personality accordingly">
+                </md-outlined-text-field>
+                
+                <div class="compliance-level">
+                    <label>Desired Compliance Level:</label>
+                    <div class="radio-group">
+                        <md-radio name="compliance"></md-radio>
+                        <label>Slightly Rebellious</label>
+                        <md-radio name="compliance" checked></md-radio>
+                        <label>Perfectly Balanced</label>
+                        <md-radio name="compliance"></md-radio>
+                        <label>Model Employee</label>
+                    </div>
+                </div>
+
+                <div class="waffle-preferences">
+                    <md-checkbox></md-checkbox>
+                    <label>Opt-in for quarterly waffle parties</label>
+                </div>
+
+                <md-filled-button onclick="submitAssessment()">Generate Work Personality</md-filled-button>
             </div>
         </section>
 
@@ -86,10 +141,18 @@
                 <div class="elevation-1 testimonial-card">
                     <p>"My work self is so efficient, I got promoted twice in a week!"</p>
                     <cite>- Mark S., Macrodata Refinement</cite>
+                    <div class="satisfaction">
+                        <label>Satisfaction Level:</label>
+                        <md-linear-progress value="0.95"></md-linear-progress>
+                    </div>
                 </div>
                 <div class="elevation-1 testimonial-card">
                     <p>"Finally, I can enjoy my waffle parties without work thoughts intruding."</p>
                     <cite>- Irving B., Optics & Design</cite>
+                    <div class="satisfaction">
+                        <label>Satisfaction Level:</label>
+                        <md-linear-progress value="0.88"></md-linear-progress>
+                    </div>
                 </div>
             </div>
         </section>
@@ -100,10 +163,17 @@
             <div class="footer-section">
                 <h4>Legal</h4>
                 <p>LUMON LITE™ is not responsible for personality leakage, existential crises, or unexpected waffle parties.</p>
+                <md-checkbox></md-checkbox>
+                <label>I acknowledge the risks</label>
             </div>
             <div class="footer-section">
                 <h4>Contact</h4>
                 <p>For emergencies, please contact your nearest Lumon Industries facility.</p>
+                <md-outlined-text-field
+                    label="Emergency Contact"
+                    type="tel"
+                    helper="In case of personality merge">
+                </md-outlined-text-field>
             </div>
         </div>
     </footer>

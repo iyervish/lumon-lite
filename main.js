@@ -65,52 +65,86 @@ function createTransformationAnimation() {
     }, 4000);
 }
 
-// Cookie consent
-function handleCookieConsent() {
-    const cookieConsent = document.getElementById('cookieConsent');
-    if (!cookieConsent) return;
-    
-    window.acceptCookies = () => {
-        localStorage.setItem('cookieConsent', 'accepted');
-        cookieConsent.style.display = 'none';
-        showWelcomeMessage();
-    };
+// Progress bar animation
+let progress = 0;
+const progressBar = document.querySelector('.personality-progress');
+const progressStatus = document.getElementById('progressStatus');
 
-    window.rejectCookies = () => {
-        localStorage.setItem('cookieConsent', 'rejected');
-        cookieConsent.style.display = 'none';
-        showWarningMessage();
-    };
-
-    if (localStorage.getItem('cookieConsent')) {
-        cookieConsent.style.display = 'none';
+function updateProgress() {
+    progress = (progress + 1) % 101;
+    if (progressBar) {
+        progressBar.progress = progress / 100;
+        if (progressStatus) {
+            progressStatus.textContent = `Personality Optimization: ${progress}%`;
+        }
     }
 }
 
-function showWelcomeMessage() {
-    const dialog = document.createElement('md-dialog');
-    dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Welcome to LUMON LITE™</h3>
-            <p>Your personality optimization journey begins now.</p>
-            <md-filled-button onclick="this.closest('md-dialog').close()">Begin Optimization</md-filled-button>
-        </div>
-    `;
-    document.body.appendChild(dialog);
-    dialog.show();
+setInterval(updateProgress, 1000);
+
+// Form handling
+const portalForm = document.querySelector('.portal-form');
+if (portalForm) {
+    portalForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(portalForm);
+        console.log('Form submitted:', Object.fromEntries(formData));
+        
+        // Show success message
+        const successMessage = document.createElement('div');
+        successMessage.textContent = 'Thank you for your submission. Your optimization journey begins now.';
+        successMessage.style.color = 'var(--md-sys-color-secondary)';
+        successMessage.style.marginTop = '1rem';
+        portalForm.appendChild(successMessage);
+    });
 }
 
-function showWarningMessage() {
-    const dialog = document.createElement('md-dialog');
-    dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Warning: Unoptimized Experience</h3>
-            <p>Your decision to reject personality optimization may result in reduced efficiency and unexpected waffle parties.</p>
-            <md-outlined-button onclick="this.closest('md-dialog').close()">I Understand the Risks</md-outlined-button>
-        </div>
-    `;
-    document.body.appendChild(dialog);
-    dialog.show();
+// Feature toggles
+const featureToggles = document.querySelectorAll('.feature-toggle');
+featureToggles.forEach(toggle => {
+    toggle.addEventListener('change', (e) => {
+        const feature = e.target.closest('.feature-control').querySelector('.feature-name');
+        if (feature) {
+            feature.style.color = e.target.selected ? 
+                'var(--md-sys-color-secondary)' : 
+                'var(--md-sys-color-on-surface)';
+        }
+    });
+});
+
+// Cookie consent
+const cookieConsent = document.querySelector('.cookie-consent');
+const acceptButton = document.querySelector('#acceptCookies');
+const rejectButton = document.querySelector('#rejectCookies');
+
+if (cookieConsent && acceptButton && rejectButton) {
+    acceptButton.addEventListener('click', () => {
+        cookieConsent.style.transform = 'translateY(100%)';
+        setTimeout(() => cookieConsent.remove(), 300);
+    });
+
+    rejectButton.addEventListener('click', () => {
+        cookieConsent.style.transform = 'translateY(100%)';
+        setTimeout(() => cookieConsent.remove(), 300);
+    });
+}
+
+// Satisfaction ratings
+const satisfactionBars = document.querySelectorAll('.satisfaction-bar');
+satisfactionBars.forEach(bar => {
+    const randomValue = Math.random();
+    bar.progress = randomValue;
+});
+
+// Memory management slider
+const memorySlider = document.querySelector('.memory-slider input');
+const memoryValue = document.querySelector('.memory-value');
+
+if (memorySlider && memoryValue) {
+    memorySlider.addEventListener('input', (e) => {
+        const value = e.target.value;
+        memoryValue.textContent = `${value}%`;
+    });
 }
 
 // Initialize animations and functionality
