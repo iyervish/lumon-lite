@@ -29,32 +29,33 @@
     <!-- Your styles -->
     <link rel="stylesheet" href="styles.css">
     
-    <!-- Material Design Web Components Initialization -->
+    <!-- Load core dependencies first -->
+    <script src="https://unpkg.com/tslib@2.6.2/tslib.js"></script>
+    
+    <!-- Load Material Web Components -->
     <script type="module">
-        // Wait for all components to load before initializing the app
-        await Promise.all([
-            // Core dependencies
-            import('https://unpkg.com/tslib@2.6.2/tslib.es6.js'),
-            
-            // Material Design Components
-            import('https://unpkg.com/@material/web@1.3.0/button/filled-button.js'),
-            import('https://unpkg.com/@material/web@1.3.0/button/outlined-button.js'),
-            import('https://unpkg.com/@material/web@1.3.0/button/text-button.js'),
-            import('https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js'),
-            import('https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js'),
-            import('https://unpkg.com/@material/web@1.3.0/dialog/dialog.js'),
-            import('https://unpkg.com/@material/web@1.3.0/icon/icon.js'),
-            import('https://unpkg.com/@material/web@1.3.0/slider/slider.js')
+        // Import all Material Web components
+        import 'https://unpkg.com/@material/web@1.3.0/all.js';
+        
+        // Wait for components to be defined
+        Promise.all([
+            customElements.whenDefined('md-dialog'),
+            customElements.whenDefined('md-filled-button'),
+            customElements.whenDefined('md-outlined-button'),
+            customElements.whenDefined('md-text-button'),
+            customElements.whenDefined('md-checkbox'),
+            customElements.whenDefined('md-linear-progress'),
+            customElements.whenDefined('md-icon'),
+            customElements.whenDefined('md-slider')
         ]).then(() => {
-            console.log('Material Design components loaded');
-            
-            // Load main.js only after components are ready
-            const mainScript = document.createElement('script');
-            mainScript.type = 'module';
-            mainScript.src = 'main.js';
-            document.body.appendChild(mainScript);
+            console.log('All Material Web components are loaded');
+            // Load main.js after components are ready
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.src = 'main.js';
+            document.body.appendChild(script);
         }).catch(error => {
-            console.error('Error loading Material Design components:', error);
+            console.error('Error loading Material Web components:', error);
         });
     </script>
 </head>
