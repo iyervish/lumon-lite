@@ -456,20 +456,20 @@ nav {
 .productivity-settings {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
     margin-top: 1.5rem;
     padding: 0.5rem;
 }
 
 .setting-item {
     background: var(--md-sys-color-surface-container);
-    padding: 1.5rem;
+    padding: 2rem;
     border-radius: 12px;
     transition: all 0.2s ease;
     border: 1px solid var(--md-sys-color-outline-variant);
     display: flex;
     flex-direction: column;
-    height: 100%;
+    min-height: 180px;
 }
 
 .setting-item:hover {
@@ -479,10 +479,10 @@ nav {
 
 .setting-item label {
     display: block;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
     color: var(--md-sys-color-on-surface);
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 1.1rem;
 }
 
 .setting-item md-slider {
@@ -494,39 +494,31 @@ nav {
     --md-slider-hover-handle-color: var(--md-sys-color-primary);
     --md-slider-with-tick-marks-container-color: var(--md-sys-color-on-surface);
     --md-slider-label-container-color: var(--md-sys-color-primary);
-    margin: 1rem 0;
+    margin: 1.5rem 0;
 }
 
 .setting-value {
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
     color: var(--md-sys-color-on-surface-variant);
     margin-top: auto;
-    padding-top: 0.75rem;
-    line-height: 1.4;
+    line-height: 1.5;
 }
 
 @media (max-width: 768px) {
-    .productivity-settings,
-    .memory-settings {
+    .productivity-settings {
         grid-template-columns: 1fr;
         padding: 0;
-        gap: 1rem;
+        gap: 1.5rem;
     }
 
-    .setting-item,
-    .memory-item {
-        padding: 1.25rem;
+    .setting-item {
+        padding: 1.5rem;
+        min-height: 160px;
     }
 
     .setting-value {
-        font-size: 0.8125rem;
-        padding-top: 0.5rem;
-    }
-
-    .setting-note {
-        font-size: 0.8125rem;
-        padding: 0.2rem 0.5rem;
+        font-size: 0.875rem;
     }
 }
 
@@ -1679,7 +1671,8 @@ md-switch {
 /* Benefits Section */
 .benefits-section {
     padding: 4rem 2rem;
-    background: var(--md-sys-color-surface);
+    position: relative;
+    overflow: hidden;
 }
 
 .benefits-grid {
@@ -2177,7 +2170,6 @@ md-switch {
 /* Work-Life Metrics Section */
 .metrics-section {
     padding: 4rem 2rem;
-    background: var(--md-sys-color-surface);
     position: relative;
     overflow: hidden;
 }
