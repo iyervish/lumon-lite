@@ -982,15 +982,15 @@ h3 {
 footer {
     position: relative;
     background: linear-gradient(180deg, var(--md-sys-color-surface) 0%, var(--md-sys-color-background) 100%);
-    padding: 4rem 2rem;
+    padding: 4rem 2rem 2rem;
     margin-top: 6rem;
     border-top: 1px solid var(--md-sys-color-outline);
 }
 
 .footer-content {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4rem;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 3rem;
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
@@ -1000,95 +1000,135 @@ footer {
     position: relative;
 }
 
-.footer-section h3 {
+.footer-logo {
+    font-family: 'Roboto Serif', serif;
     font-size: 2rem;
-    margin-bottom: 1.5rem;
-    background: var(--text-gradient);
+    background: var(--gradient-corporate);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    margin-bottom: 1rem;
 }
 
-.footer-section p {
+.footer-tagline {
+    font-size: 1rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.footer-section h3 {
     font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--md-sys-color-on-surface);
     margin-bottom: 1.5rem;
-    max-width: 500px;
+    color: var(--md-sys-color-on-surface);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    text-align: left;
 }
 
-.legal-checkbox {
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: var(--md-sys-color-on-surface-variant);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.footer-links a:hover {
+    color: var(--md-sys-color-secondary);
+}
+
+.footer-bottom {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--md-sys-color-outline);
+}
+
+.footer-bottom-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.copyright, .disclaimer {
+    color: var(--md-sys-color-on-surface);
+    opacity: 0.8;
+    font-size: 0.9rem;
+    margin: 0;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: rgba(255, 64, 129, 0.05);
-    border-radius: 12px;
-    border: 1px solid var(--md-sys-color-outline);
-    transition: all 0.3s ease;
+    height: 36px; /* Match the height of the md-filled-button */
 }
 
-.legal-checkbox:hover {
-    background: rgba(255, 64, 129, 0.1);
-    border-color: var(--md-sys-color-primary);
+.emergency-btn {
+    --md-filled-button-container-color: var(--md-sys-color-secondary);
+    --md-filled-button-hover-state-layer-color: rgba(0, 229, 255, 0.1);
+    margin: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
 }
 
-.legal-checkbox md-checkbox {
-    --md-checkbox-selected-container-color: var(--md-sys-color-primary);
-    --md-checkbox-selected-hover-state-layer-color: rgba(255, 64, 129, 0.1);
+@media (max-width: 768px) {
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .copyright, .disclaimer {
+        justify-content: center;
+    }
 }
 
-.emergency-contact {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: rgba(0, 229, 255, 0.05);
-    border: 1px solid var(--md-sys-color-secondary);
-    border-radius: 12px;
-    color: var(--md-sys-color-secondary);
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    margin-top: 1rem;
-}
-
-.emergency-contact:hover {
-    background: rgba(0, 229, 255, 0.1);
-    transform: translateY(-2px);
-}
-
-.footer-decoration {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--md-sys-color-primary), var(--md-sys-color-secondary));
-    opacity: 0.5;
+@media (max-width: 1200px) {
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .footer-section:first-child {
+        grid-column: 1 / -1;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
 }
 
 @media (max-width: 768px) {
     footer {
-        padding: 3rem 1.5rem;
-        margin-top: 4rem;
+        padding: 3rem 1.5rem 2rem;
     }
 
     .footer-content {
         grid-template-columns: 1fr;
-        gap: 3rem;
+        gap: 2rem;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
     }
 
     .footer-section h3 {
-        font-size: 1.75rem;
-    }
-
-    .footer-section p {
         font-size: 1rem;
     }
 
-    .emergency-contact {
-        width: 100%;
-        text-align: center;
+    .footer-links a {
+        font-size: 0.9rem;
     }
 }
 
