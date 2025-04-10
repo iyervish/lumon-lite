@@ -98,9 +98,14 @@ main {
 }
 
 section {
+    padding: 80px 0;
     position: relative;
-    margin: 4rem auto;
-    max-width: 1200px;
+    overflow: hidden;
+}
+
+/* Add scroll margin to sections to ensure headers are visible when scrolled to */
+#features, #team {
+    scroll-margin-top: 80px;
 }
 
 /* Typography */

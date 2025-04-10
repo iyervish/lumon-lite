@@ -26,6 +26,11 @@
         document.documentElement.style.setProperty('--md-sys-color-error', '#FF3D00');
     </script>
     
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
     <!-- Your styles -->
     <link rel="stylesheet" href="/styles.css">
 </head>
@@ -34,11 +39,10 @@
         <nav>
             <div class="logo">LUMON LITE™</div>
             <div class="nav-links">
-                <md-text-button href="#home">Home</md-text-button>
-                <md-text-button href="#product">Product</md-text-button>
-                <md-text-button href="#portal">Portal</md-text-button>
+                <md-text-button href="#features">How it Works</md-text-button>
+                <md-text-button href="#personality-portal">Design</md-text-button>
                 <md-text-button href="#pricing">Pricing</md-text-button>
-                <md-text-button href="#about">About</md-text-button>
+                <md-text-button href="#team">Team</md-text-button>
             </div>
         </nav>
     </header>
@@ -77,6 +81,10 @@
         <section id="features" class="features-section">
             <h2>How It Works</h2>
             <p class="section-description">LUMON LITE™: Your Work Self, Without The Surgery</p>
+            <div class="how-it-works-content">
+                <p>Unlike traditional severance procedures requiring invasive brain surgery, LUMON LITE™ utilizes a combination of proprietary mnemonic conditioning, cognitive restructuring, and our patented Personality Partition Protocol (PPP™).</p>
+                <p>Each morning as you approach your workplace, simply activate the LUMON LITE™ app on your company-issued device. Our revolutionary technology creates a seamless transition between your outie and innie personalities. When you leave work, the app triggers a reverse transition, leaving your outie with no recollection of your workday beyond a general sense of accomplishment.</p>
+            </div>
             <div class="feature-cards">
                 <div class="elevation-1 feature-card">
                     <h3>Non-Invasive Technology</h3>
@@ -91,6 +99,7 @@
                     <p>Advanced algorithms ensure complete separation of work and personal memories.</p>
                 </div>
             </div>
+            <p class="disclaimer">Note: LUMON LITE™ is not technically mind control, as clarified in subsection 247.B of our user agreement.</p>
         </section>
 
         <section id="personality-portal" class="portal-section">
@@ -288,15 +297,6 @@
             </div>
         </section>
 
-        <section id="how-it-works" class="how-it-works-section">
-            <h2>How LUMON LITE™ Works</h2>
-            <div class="how-it-works-content">
-                <p>Unlike traditional severance procedures requiring invasive brain surgery, LUMON LITE™ utilizes a combination of proprietary mnemonic conditioning, cognitive restructuring, and our patented Personality Partition Protocol (PPP™).</p>
-                <p>Each morning as you approach your workplace, simply activate the LUMON LITE™ app on your company-issued device. Our revolutionary technology creates a seamless transition between your outie and innie personalities. When you leave work, the app triggers a reverse transition, leaving your outie with no recollection of your workday beyond a general sense of accomplishment.</p>
-                <p class="disclaimer">Note: LUMON LITE™ is not technically mind control, as clarified in subsection 247.B of our user agreement.</p>
-            </div>
-        </section>
-
         <section id="comparison" class="comparison-section">
             <h2>Our Technology vs. Surgical Severance</h2>
             <div class="comparison-table">
@@ -465,7 +465,7 @@
                 </div>
             </div>
 
-            <h2>Our Team</h2>
+            <h2 id="team">Our Team</h2>
             <div class="team-list">
                 <div class="team-member elevation-1">
                     <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" alt="Eleanor Cobel" class="member-photo">
