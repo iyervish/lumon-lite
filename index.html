@@ -30,16 +30,18 @@
     <link rel="stylesheet" href="styles.css">
     
     <!-- Load core dependencies first -->
+    <script type="importmap">
+    {
+        "imports": {
+            "@material/web/": "https://esm.run/@material/web@1.3.0/"
+        }
+    }
+    </script>
+    
+    <!-- Load Material Web Components -->
     <script type="module">
-        // Import individual components directly from CDN
-        import 'https://unpkg.com/@material/web@1.3.0/button/filled-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/button/outlined-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/button/text-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js';
-        import 'https://unpkg.com/@material/web@1.3.0/dialog/dialog.js';
-        import 'https://unpkg.com/@material/web@1.3.0/icon/icon.js';
-        import 'https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js';
-        import 'https://unpkg.com/@material/web@1.3.0/slider/slider.js';
+        // Import all components at once
+        import '@material/web/all.js';
         
         // Wait for components to be defined
         Promise.all([
