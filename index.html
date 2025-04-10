@@ -17,6 +17,7 @@
         import '@material/web/button/text-button.js';
         import '@material/web/checkbox/checkbox.js';
         import '@material/web/progress/linear-progress.js';
+        import '@material/web/dialog/dialog.js';
         
         // Set theme colors
         document.documentElement.style.setProperty('--md-sys-color-primary', '#FF4081');
@@ -81,10 +82,6 @@
         <section id="features" class="features-section">
             <h2>How It Works</h2>
             <p class="section-description">LUMON LITE™: Your Work Self, Without The Surgery</p>
-            <div class="how-it-works-content">
-                <p>Unlike traditional severance procedures requiring invasive brain surgery, LUMON LITE™ utilizes a combination of proprietary mnemonic conditioning, cognitive restructuring, and our patented Personality Partition Protocol (PPP™).</p>
-                <p>Each morning as you approach your workplace, simply activate the LUMON LITE™ app on your company-issued device. Our revolutionary technology creates a seamless transition between your outie and innie personalities. When you leave work, the app triggers a reverse transition, leaving your outie with no recollection of your workday beyond a general sense of accomplishment.</p>
-            </div>
             <div class="feature-cards">
                 <div class="elevation-1 feature-card">
                     <h3>Non-Invasive Technology</h3>
@@ -98,6 +95,10 @@
                     <h3>Memory Management</h3>
                     <p>Advanced algorithms ensure complete separation of work and personal memories.</p>
                 </div>
+            </div>
+            <div class="how-it-works-content">
+                <p>Unlike traditional severance procedures requiring invasive brain surgery, LUMON LITE™ utilizes a combination of proprietary mnemonic conditioning, cognitive restructuring, and our patented Personality Partition Protocol (PPP™).</p>
+                <p>Each morning as you approach your workplace, simply activate the LUMON LITE™ app on your company-issued device. Our revolutionary technology creates a seamless transition between your outie and innie personalities. When you leave work, the app triggers a reverse transition, leaving your outie with no recollection of your workday beyond a general sense of accomplishment.</p>
             </div>
             <p class="disclaimer">Note: LUMON LITE™ is not technically mind control, as clarified in subsection 247.B of our user agreement.</p>
         </section>
@@ -210,6 +211,10 @@
                         </div>
                     </div>
                 </div>
+                <div class="portal-cta">
+                    <md-filled-button id="preview-personality-btn">Design Work Self</md-filled-button>
+                    <p class="waffle-note">Note: Digital waffle party access is subject to performance metrics</p>
+                </div>
             </div>
         </section>
 
@@ -228,7 +233,7 @@
                         <li>Automated commute transitions</li>
                         <li>Weekend recovery period</li>
                     </ul>
-                    <md-filled-button onclick="selectPlan('basic')">Select Plan</md-filled-button>
+                    <md-filled-button id="select-plan-basic-btn">Select Plan</md-filled-button>
                 </div>
 
                 <div class="pricing-card elevation-1 featured">
@@ -244,7 +249,7 @@
                         <li>Premium productivity incentives</li>
                         <li>Quarterly digital waffle party access</li>
                     </ul>
-                    <md-filled-button onclick="selectPlan('plus')">Select Plan</md-filled-button>
+                    <md-filled-button id="select-plan-plus-btn">Select Plan</md-filled-button>
                 </div>
 
                 <div class="pricing-card elevation-1">
@@ -260,7 +265,7 @@
                         <li>Priority handshake with CEO's digital avatar</li>
                         <li>Access to exclusive MDR refinement simulation games</li>
                     </ul>
-                    <md-filled-button onclick="selectPlan('department')">Select Plan</md-filled-button>
+                    <md-filled-button id="select-plan-department-btn">Select Plan</md-filled-button>
                 </div>
             </div>
             <p class="pricing-note">All plans include our standard Memory Wipe feature that activates during your commute, ensuring complete separation between work and personal life.</p>

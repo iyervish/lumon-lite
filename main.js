@@ -1,3 +1,52 @@
+// Check if Material Design Web Components are loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
+    
+    // Check if md-dialog is available
+    if (customElements.get('md-dialog')) {
+        console.log('md-dialog component is available');
+    } else {
+        console.error('md-dialog component is NOT available');
+    }
+    
+    // Check if md-filled-button is available
+    if (customElements.get('md-filled-button')) {
+        console.log('md-filled-button component is available');
+    } else {
+        console.error('md-filled-button component is NOT available');
+    }
+
+    // Add event listeners for buttons
+    const previewButton = document.getElementById('preview-personality-btn');
+    if (previewButton) {
+        console.log('Preview button found');
+        previewButton.addEventListener('click', () => {
+            console.log('Preview button clicked');
+            previewPersonality();
+        });
+    } else {
+        console.error('Preview button not found');
+    }
+
+    const planButtons = {
+        'basic': document.getElementById('select-plan-basic-btn'),
+        'plus': document.getElementById('select-plan-plus-btn'),
+        'department': document.getElementById('select-plan-department-btn')
+    };
+
+    Object.entries(planButtons).forEach(([plan, button]) => {
+        if (button) {
+            console.log(`${plan} plan button found`);
+            button.addEventListener('click', () => {
+                console.log(`${plan} plan button clicked`);
+                selectPlan(plan);
+            });
+        } else {
+            console.error(`${plan} plan button not found`);
+        }
+    });
+});
+
 // Transformation animation
 function createTransformationAnimation() {
     const container = document.getElementById('transformation-animation');
@@ -86,113 +135,102 @@ if (memorySlider && memoryValue) {
 }
 
 // Personality Portal Functions
-function previewPersonality() {
-    const progressSection = document.getElementById('optimization-progress');
-    const progressBar = document.getElementById('optimizationProgress');
-    const progressStatus = document.getElementById('progressStatus');
+function showYouTubeModal() {
+    console.log('showYouTubeModal function called');
     
-    progressSection.style.display = 'block';
-    progressSection.scrollIntoView({ behavior: 'smooth' });
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 1;
-        progressBar.value = progress / 100;
-        progressStatus.textContent = `Generating your work personality... ${progress}%`;
-        
-        if (progress >= 100) {
-            clearInterval(interval);
-            setTimeout(() => {
-                progressStatus.textContent = "Your innie is ready! Enjoy your digital waffle party.";
-                showWaffleParty();
-            }, 1000);
-        }
-    }, 50);
-}
-
-function showWaffleParty() {
+    // Create a native dialog first
     const dialog = document.createElement('dialog');
-    dialog.className = 'waffle-dialog elevation-1';
+    dialog.setAttribute('style', `
+        max-width: 90vw;
+        width: 800px;
+        height: auto;
+        padding: 0;
+        border: none;
+        border-radius: 8px;
+        background: rgb(30, 30, 47);
+    `);
+    
     dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Digital Waffle Party!</h3>
-            <p>Your innie has been successfully generated. Please enjoy this digital waffle party while we finalize your personality partition.</p>
-            <div class="waffle-animation"></div>
-            <md-filled-button onclick="this.closest('dialog').close()">Close</md-filled-button>
+        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="margin: 0; color: white;">Special Message</h3>
+                <button onclick="this.closest('dialog').close()" 
+                        style="padding: 8px 16px; background: #FF4081; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Close
+                </button>
+            </div>
+            <div id="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: black;">
+                <iframe 
+                    id="youtube-iframe"
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0" 
+                    title="YouTube video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
     `;
+    
     document.body.appendChild(dialog);
+    
+    // Add backdrop
+    const backdrop = document.createElement('div');
+    backdrop.setAttribute('style', `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+    `);
+    document.body.appendChild(backdrop);
+    
+    // Show dialog
     dialog.showModal();
+    
+    // Clean up backdrop and stop video when dialog closes
+    dialog.addEventListener('close', () => {
+        backdrop.remove();
+        // Remove the iframe to stop the video
+        const container = dialog.querySelector('#video-container');
+        if (container) {
+            container.innerHTML = '';
+        }
+        // Remove the dialog from DOM after a short delay
+        setTimeout(() => {
+            dialog.remove();
+        }, 100);
+    });
+    
+    // Log for debugging
+    setTimeout(() => {
+        console.log('Dialog visibility check:');
+        console.log('- Dialog in DOM:', document.body.contains(dialog));
+        console.log('- Dialog display style:', window.getComputedStyle(dialog).display);
+        console.log('- Dialog visibility:', window.getComputedStyle(dialog).visibility);
+        console.log('- Dialog dimensions:', dialog.getBoundingClientRect());
+        
+        const iframe = dialog.querySelector('iframe');
+        if (iframe) {
+            console.log('- Iframe dimensions:', iframe.getBoundingClientRect());
+            console.log('- Iframe computed style:', window.getComputedStyle(iframe));
+        }
+    }, 100);
+}
+
+function previewPersonality() {
+    console.log('previewPersonality function called');
+    showYouTubeModal();
+}
+
+function selectPlan(plan) {
+    console.log('selectPlan function called with plan:', plan);
+    showYouTubeModal();
 }
 
 // Pricing Functions
-function selectPlan(plan) {
-    const plans = {
-        basic: {
-            name: 'INNIE BASIC',
-            price: 99,
-            features: [
-                'Monday-Friday personality partition',
-                'Basic skills retention',
-                '12-hour maximum daily activation',
-                'Standard compliance protocols',
-                'Limited access to personal memories',
-                'Automated commute transitions',
-                'Weekend recovery period'
-            ]
-        },
-        plus: {
-            name: 'INNIE PLUS',
-            price: 199,
-            features: [
-                'All Basic features',
-                'Emergency Weekend Work Mode',
-                'Enhanced performance metrics',
-                'Advanced compliance programming',
-                'Completely compartmentalized personal emotions',
-                'Premium productivity incentives',
-                'Quarterly digital waffle party access'
-            ]
-        },
-        department: {
-            name: 'DEPARTMENT HEAD',
-            price: 399,
-            features: [
-                'All Plus features',
-                'Leadership trait enhancement',
-                'Natural micromanagement capabilities',
-                'Loyalty to corporate hierarchy',
-                'Reduced empathy toward subordinates',
-                'Ability to implement policies without moral consideration',
-                'Priority handshake with CEO\'s digital avatar',
-                'Access to exclusive MDR refinement simulation games'
-            ]
-        }
-    };
-
-    const selectedPlan = plans[plan];
-    const dialog = document.createElement('dialog');
-    dialog.className = 'plan-dialog elevation-1';
-    dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Confirm Your Selection</h3>
-            <p>You have selected the ${selectedPlan.name} plan for $${selectedPlan.price}/month.</p>
-            <div class="plan-features">
-                <h4>Included Features:</h4>
-                <ul>
-                    ${selectedPlan.features.map(feature => `<li>${feature}</li>`).join('')}
-                </ul>
-            </div>
-            <div class="dialog-actions">
-                <md-outlined-button onclick="this.closest('dialog').close()">Cancel</md-outlined-button>
-                <md-filled-button onclick="activatePlan('${plan}')">Activate Plan</md-filled-button>
-            </div>
-        </div>
-    `;
-    document.body.appendChild(dialog);
-    dialog.showModal();
-}
-
 function activatePlan(plan) {
     const dialog = document.createElement('dialog');
     dialog.className = 'activation-dialog elevation-1';
