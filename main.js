@@ -2,22 +2,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded');
     
-    // Check if components are available
-    if (customElements.get('md-dialog')) {
-        console.log('md-dialog component is available');
-    } else {
-        console.error('md-dialog component is NOT available');
-    }
+    // Verify components are available
+    const componentsToCheck = [
+        'md-dialog',
+        'md-filled-button',
+        'md-outlined-button',
+        'md-text-button',
+        'md-checkbox',
+        'md-linear-progress',
+        'md-icon',
+        'md-slider'
+    ];
     
-    if (customElements.get('md-filled-button')) {
-        console.log('md-filled-button component is available');
-    } else {
-        console.error('md-filled-button component is NOT available');
-    }
+    componentsToCheck.forEach(component => {
+        if (customElements.get(component)) {
+            console.log(`${component} component is available`);
+        } else {
+            console.error(`${component} component is NOT available`);
+        }
+    });
 
+    // Initialize all functionality
     initializeMetrics();
     initializePersonalityPortal();
-    initializeCustomComponents();
+    setupButtonListeners();
+    createTransformationAnimation();
+    initializeBenefitCards();
 });
 
 // Transformation animation
@@ -396,9 +406,12 @@ function initializeCustomComponents() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
         });
     });
 
@@ -422,10 +435,6 @@ function initializeCustomComponents() {
             card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
         });
     });
-
-    // Initialize animations and functionality
-    createTransformationAnimation();
-    initializeBenefitCards();
 }
 
 function setupButtonListeners() {
@@ -451,6 +460,20 @@ function setupButtonListeners() {
                 console.log(`${plan} plan button clicked`);
                 selectPlan(plan);
             });
+        }
+    });
+}
+
+// Initialize benefit cards
+function initializeBenefitCards() {
+    const benefitCards = document.querySelectorAll('.benefit-card');
+    benefitCards.forEach(card => {
+        const progressBar = card.querySelector('md-linear-progress');
+        const metricValue = card.querySelector('.metric-value');
+        
+        if (progressBar && metricValue) {
+            const value = parseInt(metricValue.textContent) / 100;
+            progressBar.value = value;
         }
     });
 } 
