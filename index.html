@@ -30,34 +30,16 @@
     <link rel="stylesheet" href="styles.css">
     
     <!-- Load core dependencies first -->
-    <script type="importmap">
-    {
-        "imports": {
-            "tslib": "https://unpkg.com/tslib@2.6.2/tslib.es6.js",
-            "@material/web/": "https://unpkg.com/@material/web@1.3.0/",
-            "@material/web/button/filled-button.js": "https://unpkg.com/@material/web@1.3.0/button/filled-button.js",
-            "@material/web/button/outlined-button.js": "https://unpkg.com/@material/web@1.3.0/button/outlined-button.js",
-            "@material/web/button/text-button.js": "https://unpkg.com/@material/web@1.3.0/button/text-button.js",
-            "@material/web/checkbox/checkbox.js": "https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js",
-            "@material/web/dialog/dialog.js": "https://unpkg.com/@material/web@1.3.0/dialog/dialog.js",
-            "@material/web/icon/icon.js": "https://unpkg.com/@material/web@1.3.0/icon/icon.js",
-            "@material/web/progress/linear-progress.js": "https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js",
-            "@material/web/slider/slider.js": "https://unpkg.com/@material/web@1.3.0/slider/slider.js"
-        }
-    }
-    </script>
-    
-    <!-- Load Material Web Components -->
     <script type="module">
-        // Import individual components
-        import '@material/web/button/filled-button.js';
-        import '@material/web/button/outlined-button.js';
-        import '@material/web/button/text-button.js';
-        import '@material/web/checkbox/checkbox.js';
-        import '@material/web/dialog/dialog.js';
-        import '@material/web/icon/icon.js';
-        import '@material/web/progress/linear-progress.js';
-        import '@material/web/slider/slider.js';
+        // Import individual components directly from CDN
+        import 'https://unpkg.com/@material/web@1.3.0/button/filled-button.js';
+        import 'https://unpkg.com/@material/web@1.3.0/button/outlined-button.js';
+        import 'https://unpkg.com/@material/web@1.3.0/button/text-button.js';
+        import 'https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js';
+        import 'https://unpkg.com/@material/web@1.3.0/dialog/dialog.js';
+        import 'https://unpkg.com/@material/web@1.3.0/icon/icon.js';
+        import 'https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js';
+        import 'https://unpkg.com/@material/web@1.3.0/slider/slider.js';
         
         // Wait for components to be defined
         Promise.all([
