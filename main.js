@@ -390,89 +390,67 @@ function initializePersonalityPortal() {
     }
 }
 
-// Call initialization when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initializeMetrics();
-    initializePersonalityPortal();
-
-    // Import Material Web components
-    import('@material/web/all.js').then(() => {
-        // Initialize any custom component behavior here
-        initializeCustomComponents();
+// Initialize custom components
+function initializeCustomComponents() {
+    // Add smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     });
 
-    function initializeCustomComponents() {
-        // Add smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+    // Initialize progress bars with animation
+    document.querySelectorAll('md-linear-progress').forEach(progress => {
+        progress.value = 0;
+        setTimeout(() => {
+            progress.value = progress.getAttribute('data-value') || 0;
+        }, 100);
+    });
+
+    // Add hover effects to cards
+    document.querySelectorAll('.elevation-1').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-4px)';
+            card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)';
         });
 
-        // Initialize progress bars with animation
-        document.querySelectorAll('md-linear-progress').forEach(progress => {
-            progress.value = 0;
-            setTimeout(() => {
-                progress.value = progress.getAttribute('data-value') || 0;
-            }, 100);
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
         });
+    });
 
-        // Add hover effects to cards
-        document.querySelectorAll('.elevation-1').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-4px)';
-                card.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.12)';
-            });
+    // Initialize animations and functionality
+    createTransformationAnimation();
+    initializeBenefitCards();
+}
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0)';
-                card.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.08)';
-            });
-        });
-
-        // Initialize animations and functionality
-        createTransformationAnimation();
-
-        // Initialize benefit card actions
-        document.querySelectorAll('.benefit-action').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const card = e.target.closest('.benefit-card');
-                const title = card.querySelector('h3').textContent;
-                
-                const dialog = document.createElement('dialog');
-                dialog.className = 'benefit-dialog elevation-1';
-                dialog.innerHTML = `
-                    <div class="dialog-content">
-                        <h3>${title}</h3>
-                        <p>Processing your request...</p>
-                        <div class="dialog-progress">
-                            <md-linear-progress value="0"></md-linear-progress>
-                        </div>
-                        <div class="dialog-actions">
-                            <md-filled-button onclick="this.closest('dialog').close()">Close</md-filled-button>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(dialog);
-                dialog.showModal();
-
-                const progressBar = dialog.querySelector('md-linear-progress');
-                let progress = 0;
-                
-                const interval = setInterval(() => {
-                    progress += 2;
-                    progressBar.value = progress / 100;
-                    
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        dialog.querySelector('p').textContent = 'Request processed successfully!';
-                    }
-                }, 20);
-            });
+function setupButtonListeners() {
+    const previewButton = document.getElementById('preview-personality-btn');
+    if (previewButton) {
+        console.log('Preview button found');
+        previewButton.addEventListener('click', () => {
+            console.log('Preview button clicked');
+            previewPersonality();
         });
     }
-}); 
+
+    const planButtons = {
+        'basic': document.getElementById('select-plan-basic-btn'),
+        'plus': document.getElementById('select-plan-plus-btn'),
+        'department': document.getElementById('select-plan-department-btn')
+    };
+
+    Object.entries(planButtons).forEach(([plan, button]) => {
+        if (button) {
+            console.log(`${plan} plan button found`);
+            button.addEventListener('click', () => {
+                console.log(`${plan} plan button clicked`);
+                selectPlan(plan);
+            });
+        }
+    });
+} 
