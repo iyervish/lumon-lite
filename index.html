@@ -13,15 +13,27 @@
     
     <!-- Material Design Web Components -->
     <script type="module">
-        // Import individual components to ensure they're properly registered
-        import 'https://unpkg.com/@material/web@1.3.0/button/filled-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/button/outlined-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/button/text-button.js';
-        import 'https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js';
-        import 'https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js';
-        import 'https://unpkg.com/@material/web@1.3.0/dialog/dialog.js';
-        import 'https://unpkg.com/@material/web@1.3.0/icon/icon.js';
-        import 'https://unpkg.com/@material/web@1.3.0/slider/slider.js';
+        // First import tslib which is a dependency
+        import 'https://unpkg.com/tslib@2.6.2/tslib.es6.js';
+        
+        // Then import Material Design components
+        const components = [
+            'https://unpkg.com/@material/web@1.3.0/button/filled-button.js',
+            'https://unpkg.com/@material/web@1.3.0/button/outlined-button.js',
+            'https://unpkg.com/@material/web@1.3.0/button/text-button.js',
+            'https://unpkg.com/@material/web@1.3.0/checkbox/checkbox.js',
+            'https://unpkg.com/@material/web@1.3.0/progress/linear-progress.js',
+            'https://unpkg.com/@material/web@1.3.0/dialog/dialog.js',
+            'https://unpkg.com/@material/web@1.3.0/icon/icon.js',
+            'https://unpkg.com/@material/web@1.3.0/slider/slider.js'
+        ];
+
+        // Load all components and wait for them to be ready
+        await Promise.all(
+            components.map(url => import(url))
+        );
+
+        console.log('All Material Design components loaded');
     </script>
     
     <style>

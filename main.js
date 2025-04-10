@@ -1,50 +1,23 @@
-// Check if Material Design Web Components are loaded
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded');
     
-    // Check if md-dialog is available
+    // Check if components are available
     if (customElements.get('md-dialog')) {
         console.log('md-dialog component is available');
     } else {
         console.error('md-dialog component is NOT available');
     }
     
-    // Check if md-filled-button is available
     if (customElements.get('md-filled-button')) {
         console.log('md-filled-button component is available');
     } else {
         console.error('md-filled-button component is NOT available');
     }
 
-    // Add event listeners for buttons
-    const previewButton = document.getElementById('preview-personality-btn');
-    if (previewButton) {
-        console.log('Preview button found');
-        previewButton.addEventListener('click', () => {
-            console.log('Preview button clicked');
-            previewPersonality();
-        });
-    } else {
-        console.error('Preview button not found');
-    }
-
-    const planButtons = {
-        'basic': document.getElementById('select-plan-basic-btn'),
-        'plus': document.getElementById('select-plan-plus-btn'),
-        'department': document.getElementById('select-plan-department-btn')
-    };
-
-    Object.entries(planButtons).forEach(([plan, button]) => {
-        if (button) {
-            console.log(`${plan} plan button found`);
-            button.addEventListener('click', () => {
-                console.log(`${plan} plan button clicked`);
-                selectPlan(plan);
-            });
-        } else {
-            console.error(`${plan} plan button not found`);
-        }
-    });
+    initializeMetrics();
+    initializePersonalityPortal();
+    initializeCustomComponents();
 });
 
 // Transformation animation
