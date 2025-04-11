@@ -9,11 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material/web": "^1.2.0",
-    "gsap": "^3.12.5",
-    "three": "^0.161.0"
+    "@material/web": "^1.2.0"
   },
   "devDependencies": {
     "vite": "^5.0.0"
   }
-} 
+}

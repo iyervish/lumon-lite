@@ -26,9 +26,6 @@
         }
     </style>
     
-    <!-- Your styles -->
-    <link rel="stylesheet" href="styles.css">
-    
     <!-- Load core dependencies first -->
     <script type="importmap">
     {
@@ -55,20 +52,53 @@
             customElements.whenDefined('md-slider')
         ]).then(() => {
             console.log('All Material Web components are loaded');
-            // Load main.js after components are ready
+            
+            // Create and load main.js script
             const script = document.createElement('script');
-            script.type = 'module';
             script.src = 'main.js';
+            script.onload = () => {
+                console.log('main.js loaded successfully');
+                // Dispatch a custom event to indicate everything is ready
+                window.dispatchEvent(new Event('components-ready'));
+            };
+            script.onerror = (error) => {
+                console.error('Error loading main.js:', error);
+            };
             document.body.appendChild(script);
         }).catch(error => {
             console.error('Error loading Material Web components:', error);
         });
     </script>
+    
+    <!-- Import Material Design components -->
+    <script type="module">
+        // Import Material Design components
+        import '@material/web/button/filled-button.js';
+        import '@material/web/button/outlined-button.js';
+        import '@material/web/button/text-button.js';
+        import '@material/web/checkbox/checkbox.js';
+        import '@material/web/switch/switch.js';
+        import '@material/web/textfield/filled-text-field.js';
+        import '@material/web/textfield/outlined-text-field.js';
+        import '@material/web/radio/radio.js';
+        import '@material/web/icon/icon.js';
+        import '@material/web/progress/linear-progress.js';
+        import '@material/web/dialog/dialog.js';
+    </script>
+    
+    <!-- Application script -->
+    <script type="module" src="/src/main.js"></script>
+    
+    <!-- Your styles -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="main-header">
         <nav>
             <div class="logo">LUMON LITE™</div>
+            <button class="mobile-menu-button" aria-label="Menu">
+                <md-icon>menu</md-icon>
+            </button>
             <div class="nav-links">
                 <md-text-button href="#features">How it Works</md-text-button>
                 <md-text-button href="#personality-portal">Design</md-text-button>
