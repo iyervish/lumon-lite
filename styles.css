@@ -81,11 +81,11 @@
     --md-switch-hover-state-layer-color: rgba(255, 64, 129, 0.08);
 
     /* Base spacing system */
-    --spacing-xs: 0.5rem;   /* 8px */
-    --spacing-sm: 1rem;     /* 16px */
-    --spacing-md: 2rem;     /* 32px */
-    --spacing-lg: 3rem;     /* 48px - reduced from 4rem */
-    --spacing-xl: 4rem;     /* 64px - reduced from 6rem */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
     --section-spacing: var(--spacing-xl);
     --content-max-width: 1200px;
 }
@@ -757,7 +757,7 @@ h3 {
     }
 
     section {
-        margin: var(--spacing-lg) auto; /* Updated from 3rem auto */
+        margin: var(--spacing-lg) auto;
     }
 
     .portal-step {
@@ -789,6 +789,76 @@ h3 {
     
     h3 {
         font-size: 2rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section h3 {
+        font-size: 1rem;
+    }
+
+    .footer-links a {
+        font-size: 0.9rem;
+    }
+
+    .dialog-content {
+        padding: 1.5rem;
+    }
+
+    .waffle-animation {
+        width: 150px;
+        height: 150px;
+    }
+
+    .dialog-actions {
+        flex-direction: column;
+    }
+
+    .dialog-actions md-filled-button,
+    .dialog-actions md-outlined-button {
+        width: 100%;
+    }
+
+    .mobile-menu-button {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--md-sys-color-surface);
+        padding: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--md-sys-color-outline);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    md-text-button,
+    md-filled-button,
+    md-outlined-button {
+        min-height: 44px;
+        padding: 0.5rem 1rem;
+    }
+
+    .trait-option,
+    .memory-item,
+    .setting-item {
+        padding: 1rem;
     }
 }
 
