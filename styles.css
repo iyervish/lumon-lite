@@ -1336,49 +1336,101 @@ footer {
 md-dialog[type="modal"] {
     --md-dialog-container-shape: 28px;
     --md-dialog-container-color: var(--md-sys-color-surface);
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     z-index: 1000;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
 }
 
 md-dialog[type="modal"]::backdrop {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
 }
 
-md-dialog .dialog-content {
+md-dialog[type="modal"] .dialog-content {
+    position: relative !important;
     background: var(--md-sys-color-surface);
-    padding: 24px;
-    width: 90vw;
-    max-width: 1200px;
+    padding: 48px;
+    width: 95vw;
+    max-width: 800px;
+    min-height: 400px;
     border-radius: 28px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    margin: 0 auto !important;
+    animation: dialogEnter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes dialogEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 24px;
 }
 
 .dialog-header h3 {
+    font-size: 36px;
+    font-weight: 600;
     margin: 0;
-    color: var(--md-sys-color-on-surface);
-    font-size: 24px;
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.dialog-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: var(--md-sys-color-on-surface-variant);
+    margin: 0;
+    max-width: 600px;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: auto;
+    padding-top: 32px;
+    width: 100%;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    md-dialog .dialog-content {
-        padding: 16px;
-        width: 95vw;
+    md-dialog[type="modal"] .dialog-content {
+        padding: 32px;
+        width: 90vw;
+        min-height: 300px;
+    }
+
+    .dialog-header h3 {
+        font-size: 28px;
+    }
+
+    .dialog-content p {
+        font-size: 1.1rem;
     }
 }
 
