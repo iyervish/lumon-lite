@@ -1,6 +1,9 @@
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');
+// Initialize when components are ready
+window.addEventListener('components-ready', () => {
+    console.log('Components ready event fired');
+    
+    // Initialize mobile menu
+    initializeMobileMenu();
     
     // Verify components are available
     const componentsToCheck = [
@@ -14,42 +17,126 @@ document.addEventListener('DOMContentLoaded', () => {
         'md-slider'
     ];
     
+    let allComponentsAvailable = true;
     componentsToCheck.forEach(component => {
         if (customElements.get(component)) {
             console.log(`${component} component is available`);
         } else {
             console.error(`${component} component is NOT available`);
+            allComponentsAvailable = false;
         }
     });
 
+    if (!allComponentsAvailable) {
+        console.error('Some components are not available, initialization aborted');
+        return;
+    }
+
     // Initialize all functionality
-    initializeMetrics();
-    initializePersonalityPortal();
-    setupButtonListeners();
-    createTransformationAnimation();
-    initializeBenefitCards();
+    console.log('Starting to initialize functionality');
+    
+    // Add a small delay to ensure DOM is fully ready
+    setTimeout(() => {
+        console.log('Initializing metrics');
+        initializeMetrics();
+        
+        console.log('Initializing personality portal');
+        initializePersonalityPortal();
+        
+        console.log('Setting up button listeners');
+        setupButtonListeners();
+        
+        console.log('Creating transformation animation');
+        createTransformationAnimation();
+        
+        console.log('Initializing benefit cards');
+        initializeBenefitCards();
+        
+        console.log('All functionality initialized');
+    }, 100);
 });
 
 // Transformation animation
 function createTransformationAnimation() {
-    const container = document.getElementById('transformation-animation');
-    if (!container) return;
+    // Check if the animation container exists in the DOM
+    const containerExists = document.querySelector('.animation-container, #transformation-animation') !== null;
+    
+    if (!containerExists) {
+        // Retry after a short delay to see if the element appears
+        setTimeout(createTransformationAnimation, 500);
+        return;
+    }
+    
+    // Try both selectors to ensure we find the element
+    const container = document.querySelector('.animation-container, #transformation-animation');
+    
+    if (!container) {
+        return;
+    }
 
-    // Start the animation loop immediately
+    let isAnimating = false;
+
     function animate() {
+        if (isAnimating) {
+            return;
+        }
+        
+        isAnimating = true;
+        
+        // Add a visual indicator for debugging
+        const debugIndicator = document.createElement('div');
+        debugIndicator.style.position = 'absolute';
+        debugIndicator.style.top = '10px';
+        debugIndicator.style.right = '10px';
+        debugIndicator.style.background = 'red';
+        debugIndicator.style.color = 'white';
+        debugIndicator.style.padding = '5px';
+        debugIndicator.style.borderRadius = '5px';
+        debugIndicator.style.zIndex = '1000';
+        debugIndicator.textContent = 'Animation Active';
+        container.appendChild(debugIndicator);
+        
+        // Try both class-based and direct style changes
         container.classList.add('transforming');
         
-        // Remove the transforming class after 2 seconds
+        // Also try a direct style change to test if CSS transitions are working
+        const abstractShape = container.querySelector('.abstract-shape');
+        if (abstractShape) {
+            abstractShape.style.transform = 'translate(-50%, -50%) scale(1.1) rotate(180deg)';
+            abstractShape.style.borderRadius = '25%';
+        }
+        
         setTimeout(() => {
             container.classList.remove('transforming');
+            
+            // Reset direct style changes
+            if (abstractShape) {
+                abstractShape.style.transform = 'translate(-50%, -50%)';
+                abstractShape.style.borderRadius = '50%';
+            }
+            
+            isAnimating = false;
+            
+            // Remove the debug indicator
+            if (container.contains(debugIndicator)) {
+                container.removeChild(debugIndicator);
+            }
         }, 2000);
     }
 
-    // Run animation immediately
+    // Start animation immediately
     animate();
 
-    // Set up continuous loop every 4 seconds
-    setInterval(animate, 4000);
+    // Set up continuous animation
+    const animationInterval = setInterval(animate, 4000);
+    
+    // Store the interval ID for potential cleanup
+    window.animationInterval = animationInterval;
+
+    // Add click handler for video modal
+    container.addEventListener('click', () => {
+        showYouTubeModal();
+    });
 }
 
 // Progress bar animation
@@ -117,90 +204,96 @@ if (memorySlider && memoryValue) {
     });
 }
 
-// Personality Portal Functions
-function showYouTubeModal() {
-    console.log('showYouTubeModal function called');
+// Load YouTube IFrame API
+function loadYouTubeAPI() {
+    if (window.YT) {
+        return Promise.resolve();
+    }
     
-    // Create a native dialog first
-    const dialog = document.createElement('dialog');
+    return new Promise((resolve, reject) => {
+        // Create YouTube API script
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        
+        // Setup callback for when API is ready
+        window.onYouTubeIframeAPIReady = () => {
+            resolve();
+        };
+    });
+}
+
+function showYouTubeModal() {
+    // Create Material Web dialog
+    const dialog = document.createElement('md-dialog');
+    
+    // Set dialog styles and properties
     dialog.setAttribute('style', `
-        max-width: 90vw;
-        width: 800px;
-        height: auto;
-        padding: 0;
-        border: none;
-        border-radius: 8px;
-        background: rgb(30, 30, 47);
+        --_container-color: var(--md-sys-color-surface);
+        --_container-shape: 28px;
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
     `);
     
+    // Set dialog content with improved styling
     dialog.innerHTML = `
-        <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 style="margin: 0; color: white;">Special Message</h3>
-                <button onclick="this.closest('dialog').close()" 
-                        style="padding: 8px 16px; background: #FF4081; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Close
-                </button>
+        <div class="dialog-content" style="
+            background: var(--md-sys-color-surface);
+            padding: 24px;
+            width: 800px;
+            max-width: 90vw;
+            border-radius: 28px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        ">
+            <div style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 16px;
+            ">
+                <h3 style="margin: 0; color: var(--md-sys-color-on-surface); font-size: 24px;">Special Message</h3>
+                <md-filled-button onclick="this.closest('md-dialog').close()">Close</md-filled-button>
             </div>
-            <div id="video-container" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px; background: black;">
+            <div style="
+                position: relative;
+                width: 100%;
+                padding-bottom: 56.25%;
+                background: var(--md-sys-color-surface);
+                border-radius: 8px;
+                overflow: hidden;
+            ">
                 <iframe 
-                    id="youtube-iframe"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0" 
+                    style="
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        border: none;
+                    "
+                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1"
                     title="YouTube video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
             </div>
         </div>
     `;
     
+    // Add dialog to body and show it
     document.body.appendChild(dialog);
+    dialog.show();
     
-    // Add backdrop
-    const backdrop = document.createElement('div');
-    backdrop.setAttribute('style', `
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0,0,0,0.5);
-        z-index: 999;
-    `);
-    document.body.appendChild(backdrop);
-    
-    // Show dialog
-    dialog.showModal();
-    
-    // Clean up backdrop and stop video when dialog closes
+    // Clean up when dialog closes
     dialog.addEventListener('close', () => {
-        backdrop.remove();
-        // Remove the iframe to stop the video
-        const container = dialog.querySelector('#video-container');
-        if (container) {
-            container.innerHTML = '';
-        }
-        // Remove the dialog from DOM after a short delay
-        setTimeout(() => {
-            dialog.remove();
-        }, 100);
+        dialog.remove();
     });
-    
-    // Log for debugging
-    setTimeout(() => {
-        console.log('Dialog visibility check:');
-        console.log('- Dialog in DOM:', document.body.contains(dialog));
-        console.log('- Dialog display style:', window.getComputedStyle(dialog).display);
-        console.log('- Dialog visibility:', window.getComputedStyle(dialog).visibility);
-        console.log('- Dialog dimensions:', dialog.getBoundingClientRect());
-        
-        const iframe = dialog.querySelector('iframe');
-        if (iframe) {
-            console.log('- Iframe dimensions:', iframe.getBoundingClientRect());
-            console.log('- Iframe computed style:', window.getComputedStyle(iframe));
-        }
-    }, 100);
 }
 
 function previewPersonality() {
@@ -476,4 +569,49 @@ function initializeBenefitCards() {
             progressBar.value = value;
         }
     });
+}
+
+// Mobile menu initialization
+function initializeMobileMenu() {
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenuButton && navLinks) {
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent event from bubbling up
+            navLinks.classList.toggle('active');
+            const isOpen = navLinks.classList.contains('active');
+            mobileMenuButton.setAttribute('aria-expanded', isOpen);
+            
+            // Change menu icon based on state
+            const menuIcon = mobileMenuButton.querySelector('md-icon');
+            if (menuIcon) {
+                menuIcon.textContent = isOpen ? 'close' : 'menu';
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!event.target.closest('.nav-links') && !event.target.closest('.mobile-menu-button')) {
+                navLinks.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                const menuIcon = mobileMenuButton.querySelector('md-icon');
+                if (menuIcon) {
+                    menuIcon.textContent = 'menu';
+                }
+            }
+        });
+
+        // Close menu when clicking a link
+        navLinks.querySelectorAll('md-text-button').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                const menuIcon = mobileMenuButton.querySelector('md-icon');
+                if (menuIcon) {
+                    menuIcon.textContent = 'menu';
+                }
+            });
+        });
+    }
 } 
