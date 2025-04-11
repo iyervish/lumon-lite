@@ -5,6 +5,9 @@ window.addEventListener('components-ready', () => {
     // Initialize mobile menu
     initializeMobileMenu();
     
+    // Initialize theme toggle
+    initializeThemeToggle();
+    
     // Verify components are available
     const componentsToCheck = [
         'md-dialog',
@@ -573,4 +576,55 @@ function initializeMobileMenu() {
             });
         });
     }
-} 
+}
+
+// Theme switching functionality
+function initializeThemeToggle() {
+    const themeToggle = document.querySelector('.theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    
+    if (!themeToggle) {
+        console.error('Theme toggle button not found');
+        return;
+    }
+    
+    // Function to update theme
+    function updateTheme(isDark) {
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        const icon = themeToggle.querySelector('md-icon');
+        if (icon) {
+            icon.textContent = isDark ? 'dark_mode' : 'light_mode';
+        }
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        console.log('Theme updated to:', isDark ? 'dark' : 'light');
+    }
+    
+    // Initialize theme based on saved preference or system preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        updateTheme(savedTheme === 'dark');
+    } else {
+        updateTheme(prefersDarkScheme.matches);
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const isDark = currentTheme !== 'light';
+        updateTheme(!isDark);
+    });
+    
+    // Listen for system theme changes
+    prefersDarkScheme.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            updateTheme(e.matches);
+        }
+    });
+}
+
+// Initialize all components
+document.addEventListener('DOMContentLoaded', () => {
+    initializeCustomComponents();
+    initializeMobileMenu();
+    initializeThemeToggle();
+}); 

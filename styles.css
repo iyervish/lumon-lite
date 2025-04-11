@@ -1,5 +1,8 @@
 /* Material Design Theme */
 :root {
+    /* Default theme (dark) */
+    color-scheme: dark;
+
     /* Colors */
     --md-sys-color-primary: #FF4081;
     --md-sys-color-on-primary: #FFFFFF;
@@ -90,6 +93,55 @@
     --content-max-width: 1200px;
 }
 
+/* Light theme */
+[data-theme="light"] {
+    color-scheme: light;
+    
+    --md-sys-color-primary: #D81B60;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #FFD7E0;
+    --md-sys-color-on-primary-container: #3F0018;
+    --md-sys-color-surface: #FFFFFF;
+    --md-sys-color-surface-variant: #F5F5F5;
+    --md-sys-color-background: #F8F9FA;
+    --md-sys-color-on-surface: #1E1E2F;
+    --md-sys-color-on-surface-variant: #4A4A65;
+    --md-sys-color-secondary: #0097A7;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-tertiary: #64DD17;
+    --md-sys-color-error: #D50000;
+    --md-sys-color-on-error: #FFFFFF;
+    --md-sys-color-outline: rgba(0, 0, 0, 0.12);
+    --md-sys-color-outline-variant: rgba(0, 0, 0, 0.06);
+}
+
+/* Theme transition */
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme toggle styles */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 20px;
+    background: var(--md-sys-color-surface-variant);
+    border: 1px solid var(--md-sys-color-outline);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background: var(--md-sys-color-surface-container-highest);
+}
+
+.theme-toggle md-icon {
+    font-size: 20px;
+    color: var(--md-sys-color-on-surface);
+}
+
 /* Base Styles */
 body {
     margin: 0;
@@ -146,12 +198,23 @@ h3 {
     top: 0;
     left: 0;
     right: 0;
-    background: rgba(30, 30, 47, 0.8);
+    background: rgba(var(--md-sys-color-surface), 0.8);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     padding: 1rem 2rem;
     z-index: 1000;
     box-shadow: var(--md-sys-elevation-level1);
+    border-bottom: 1px solid var(--md-sys-color-outline);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] .main-header {
+    background: rgba(255, 255, 255, 0.8);
+    border-bottom: 1px solid var(--md-sys-color-outline);
+}
+
+[data-theme="dark"] .main-header {
+    background: rgba(30, 30, 47, 0.8);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -163,6 +226,18 @@ nav {
     margin: 0 auto;
 }
 
+/* Navigation styles */
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-links md-text-button {
+    --md-text-button-label-text-color: var(--md-sys-color-on-surface);
+    --md-text-button-hover-state-layer-color: var(--md-sys-color-primary);
+    --md-text-button-pressed-state-layer-color: var(--md-sys-color-primary);
+}
+
 .logo {
     font-family: 'Roboto Serif', serif;
     font-size: 1.5rem;
@@ -171,11 +246,39 @@ nav {
     background-clip: text;
     color: transparent;
     text-decoration: none;
+    transition: opacity 0.3s ease;
 }
 
-.nav-links {
+.logo:hover {
+    opacity: 0.8;
+}
+
+/* Theme-specific navigation adjustments */
+[data-theme="light"] .nav-links md-text-button {
+    --md-text-button-label-text-color: var(--md-sys-color-on-surface);
+    --md-text-button-hover-state-layer-color: rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .nav-links md-text-button {
+    --md-text-button-label-text-color: var(--md-sys-color-on-surface);
+    --md-text-button-hover-state-layer-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-links .nav-item {
     display: flex;
-    gap: 1rem;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links .nav-item md-icon {
+    font-size: 24px;
+    color: var(--md-sys-color-on-surface);
+}
+
+.nav-links .nav-item md-text-button {
+    --md-text-button-label-text-color: var(--md-sys-color-on-surface);
+    --md-text-button-hover-state-layer-color: var(--md-sys-color-primary);
+    --md-text-button-pressed-state-layer-color: var(--md-sys-color-primary);
 }
 
 /* Hero Section */
@@ -2844,15 +2947,18 @@ md-dialog[type="modal"] {
 
     .nav-links.active {
         display: flex;
-        opacity: 1;
-        transform: translateY(0);
-        pointer-events: all;
-        box-shadow: var(--md-sys-elevation-level2);
     }
 
-    .nav-links md-text-button {
-        width: 100%;
-        justify-content: center;
+    md-text-button,
+    md-filled-button,
+    md-outlined-button {
+        min-height: 44px;
+        padding: 0.5rem 1rem;
+    }
+
+    .trait-option,
+    .memory-item,
+    .setting-item {
         padding: 1rem;
     }
 }
