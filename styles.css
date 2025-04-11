@@ -1333,39 +1333,53 @@ footer {
 }
 
 /* Dialog Styles */
-dialog {
-    border: none;
-    border-radius: 16px;
-    padding: 0;
-    background: var(--md-sys-color-surface);
-    box-shadow: var(--md-sys-elevation-level3);
-}
-
-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.dialog-content {
-    padding: 2rem;
-    min-width: 300px;
-    max-width: 500px;
-}
-
-.dialog-content h3 {
-    color: var(--md-sys-color-primary);
-    margin-bottom: 1rem;
-}
-
-.dialog-content p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-}
-
-.dialog-actions {
+md-dialog[type="modal"] {
+    --md-dialog-container-shape: 28px;
+    --md-dialog-container-color: var(--md-sys-color-surface);
+    position: fixed;
+    inset: 0;
     display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    margin-top: 2rem;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+md-dialog[type="modal"]::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+md-dialog .dialog-content {
+    background: var(--md-sys-color-surface);
+    padding: 24px;
+    width: 90vw;
+    max-width: 1200px;
+    border-radius: 28px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.dialog-header h3 {
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+    font-size: 24px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    md-dialog .dialog-content {
+        padding: 16px;
+        width: 95vw;
+    }
 }
 
 /* Waffle Party Dialog */
@@ -2841,7 +2855,7 @@ md-linear-progress {
     }
 } 
 
-/* YouTube Dialog */
+/* YouTube Dialog Styles - Updated */
 md-dialog[type="modal"] {
     --md-dialog-container-shape: 28px;
     --md-dialog-container-color: var(--md-sys-color-surface);
@@ -2870,29 +2884,17 @@ md-dialog .dialog-content {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-#video-container {
-    position: relative;
-    width: 100%;
-    padding-bottom: 56.25%;
-    background: #000;
-    border-radius: 8px;
-    overflow: hidden;
-    margin-top: 16px;
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
-#youtube-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    z-index: 2;
-}
-
-/* Ensure dialog is visible on all backgrounds */
-md-dialog[type="modal"] {
-    isolation: isolate;
+.dialog-header h3 {
+    margin: 0;
+    color: var(--md-sys-color-on-surface);
+    font-size: 24px;
 }
 
 /* Responsive adjustments */

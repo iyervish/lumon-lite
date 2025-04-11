@@ -1,5 +1,5 @@
 // Main application entry point
-import { createTransformationAnimation, initializeProgressBar, cleanup as cleanupAnimations } from './modules/animations.js';
+import { createTransformationAnimation, initializeProgressBar } from './modules/animations.js';
 import { initializeFormHandlers } from './modules/forms.js';
 import { initializeFeatureToggles, initializeMemorySlider } from './modules/features.js';
 import { initializeMetrics } from './modules/metrics.js';

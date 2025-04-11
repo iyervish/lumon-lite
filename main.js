@@ -174,96 +174,14 @@ if (memorySlider && memoryValue) {
     });
 }
 
-function showYouTubeModal() {
-    // Prevent multiple modals
-    const existingDialog = document.querySelector('md-dialog');
-    if (existingDialog) {
-        console.log('Modal already open, preventing duplicate');
-        return;
-    }
-
-    // Create Material Web dialog
-    const dialog = document.createElement('md-dialog');
-    dialog.setAttribute('type', 'modal');
-    dialog.setAttribute('style', `
-        --_container-color: var(--md-sys-color-surface);
-        --_container-shape: 28px;
-        position: fixed;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.8);
-    `);
-    
-    // Set dialog content with improved styling
-    dialog.innerHTML = `
-        <div class="dialog-content" style="
-            background: var(--md-sys-color-surface);
-            padding: 24px;
-            width: 90vw;
-            max-width: 1200px;
-            border-radius: 28px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        ">
-            <div style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 16px;
-            ">
-                <h3 style="margin: 0; color: var(--md-sys-color-on-surface); font-size: 24px;">Special Message</h3>
-                <md-filled-button onclick="this.closest('md-dialog').close()">Close</md-filled-button>
-            </div>
-            <div id="video-container" style="
-                position: relative;
-                width: 100%;
-                padding-bottom: 56.25%;
-                background: #000;
-                border-radius: 8px;
-                overflow: hidden;
-            ">
-                <iframe 
-                    id="youtube-iframe"
-                    style="
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        border: none;
-                    "
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0"
-                    title="YouTube video"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                ></iframe>
-            </div>
-        </div>
-    `;
-    
-    // Add dialog to body and show it
-    document.body.appendChild(dialog);
-    dialog.show();
-    
-    // Clean up when dialog closes
-    dialog.addEventListener('close', () => {
-        dialog.remove();
-    });
-}
-
 function previewPersonality() {
     console.log('previewPersonality function called');
-    showYouTubeModal();
+    // Removed YouTube modal functionality
 }
 
 function selectPlan(plan) {
     console.log('selectPlan function called with plan:', plan);
-    showYouTubeModal();
+    activatePlan(plan);
 }
 
 // Pricing Functions
