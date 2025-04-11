@@ -62,44 +62,22 @@ function createTransformationAnimation() {
     const containerExists = document.querySelector('.animation-container, #transformation-animation') !== null;
     
     if (!containerExists) {
-        // Retry after a short delay to see if the element appears
+        console.log('Animation container not found, retrying in 500ms');
         setTimeout(createTransformationAnimation, 500);
         return;
     }
     
-    // Try both selectors to ensure we find the element
     const container = document.querySelector('.animation-container, #transformation-animation');
-    
-    if (!container) {
-        return;
-    }
-
     let isAnimating = false;
-
+    
     function animate() {
         if (isAnimating) {
             return;
         }
         
         isAnimating = true;
-        
-        // Add a visual indicator for debugging
-        const debugIndicator = document.createElement('div');
-        debugIndicator.style.position = 'absolute';
-        debugIndicator.style.top = '10px';
-        debugIndicator.style.right = '10px';
-        debugIndicator.style.background = 'red';
-        debugIndicator.style.color = 'white';
-        debugIndicator.style.padding = '5px';
-        debugIndicator.style.borderRadius = '5px';
-        debugIndicator.style.zIndex = '1000';
-        debugIndicator.textContent = 'Animation Active';
-        container.appendChild(debugIndicator);
-        
-        // Try both class-based and direct style changes
         container.classList.add('transforming');
         
-        // Also try a direct style change to test if CSS transitions are working
         const abstractShape = container.querySelector('.abstract-shape');
         if (abstractShape) {
             abstractShape.style.transform = 'translate(-50%, -50%) scale(1.1) rotate(180deg)';
@@ -109,18 +87,12 @@ function createTransformationAnimation() {
         setTimeout(() => {
             container.classList.remove('transforming');
             
-            // Reset direct style changes
             if (abstractShape) {
                 abstractShape.style.transform = 'translate(-50%, -50%)';
                 abstractShape.style.borderRadius = '50%';
             }
             
             isAnimating = false;
-            
-            // Remove the debug indicator
-            if (container.contains(debugIndicator)) {
-                container.removeChild(debugIndicator);
-            }
         }, 2000);
     }
 
@@ -132,11 +104,6 @@ function createTransformationAnimation() {
     
     // Store the interval ID for potential cleanup
     window.animationInterval = animationInterval;
-
-    // Add click handler for video modal
-    container.addEventListener('click', () => {
-        showYouTubeModal();
-    });
 }
 
 // Progress bar animation
@@ -205,10 +172,16 @@ if (memorySlider && memoryValue) {
 }
 
 function showYouTubeModal() {
+    // Prevent multiple modals
+    const existingDialog = document.querySelector('md-dialog');
+    if (existingDialog) {
+        console.log('Modal already open, preventing duplicate');
+        return;
+    }
+
     // Create Material Web dialog
     const dialog = document.createElement('md-dialog');
-    
-    // Set dialog styles and properties
+    dialog.setAttribute('type', 'modal');
     dialog.setAttribute('style', `
         --_container-color: var(--md-sys-color-surface);
         --_container-shape: 28px;
@@ -218,6 +191,9 @@ function showYouTubeModal() {
         align-items: center;
         justify-content: center;
         z-index: 1000;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
     `);
     
     // Set dialog content with improved styling
@@ -225,8 +201,8 @@ function showYouTubeModal() {
         <div class="dialog-content" style="
             background: var(--md-sys-color-surface);
             padding: 24px;
-            width: 800px;
-            max-width: 90vw;
+            width: 90vw;
+            max-width: 1200px;
             border-radius: 28px;
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         ">
@@ -239,15 +215,16 @@ function showYouTubeModal() {
                 <h3 style="margin: 0; color: var(--md-sys-color-on-surface); font-size: 24px;">Special Message</h3>
                 <md-filled-button onclick="this.closest('md-dialog').close()">Close</md-filled-button>
             </div>
-            <div style="
+            <div id="video-container" style="
                 position: relative;
                 width: 100%;
                 padding-bottom: 56.25%;
-                background: var(--md-sys-color-surface);
+                background: #000;
                 border-radius: 8px;
                 overflow: hidden;
             ">
                 <iframe 
+                    id="youtube-iframe"
                     style="
                         position: absolute;
                         top: 0;
@@ -256,8 +233,9 @@ function showYouTubeModal() {
                         height: 100%;
                         border: none;
                     "
-                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&origin=http://localhost:5173"
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0"
                     title="YouTube video"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
@@ -513,8 +491,9 @@ function setupButtonListeners() {
     const previewButton = document.getElementById('preview-personality-btn');
     if (previewButton) {
         console.log('Preview button found');
-        previewButton.addEventListener('click', () => {
+        previewButton.addEventListener('click', (event) => {
             console.log('Preview button clicked');
+            event.stopPropagation();
             previewPersonality();
         });
     }
@@ -528,8 +507,9 @@ function setupButtonListeners() {
     Object.entries(planButtons).forEach(([plan, button]) => {
         if (button) {
             console.log(`${plan} plan button found`);
-            button.addEventListener('click', () => {
+            button.addEventListener('click', (event) => {
                 console.log(`${plan} plan button clicked`);
+                event.stopPropagation();
                 selectPlan(plan);
             });
         }

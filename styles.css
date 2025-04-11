@@ -2739,7 +2739,7 @@ md-linear-progress {
 } 
 
 /* YouTube Dialog */
-md-dialog {
+md-dialog[type="modal"] {
     --md-dialog-container-shape: 28px;
     --md-dialog-container-color: var(--md-sys-color-surface);
     position: fixed;
@@ -2748,43 +2748,47 @@ md-dialog {
     align-items: center;
     justify-content: center;
     z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
 }
 
-md-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
+md-dialog[type="modal"]::backdrop {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
 }
 
 md-dialog .dialog-content {
     background: var(--md-sys-color-surface);
     padding: 24px;
-    width: 800px;
-    max-width: 90vw;
+    width: 90vw;
+    max-width: 1200px;
     border-radius: 28px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-md-dialog .video-container {
+#video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    background: var(--md-sys-color-surface);
+    padding-bottom: 56.25%;
+    background: #000;
     border-radius: 8px;
     overflow: hidden;
     margin-top: 16px;
 }
 
-md-dialog .video-container iframe {
+#youtube-iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     border: none;
+    z-index: 2;
 }
 
 /* Ensure dialog is visible on all backgrounds */
-md-dialog {
+md-dialog[type="modal"] {
     isolation: isolate;
 }
 
@@ -2792,7 +2796,7 @@ md-dialog {
 @media (max-width: 768px) {
     md-dialog .dialog-content {
         padding: 16px;
-        max-width: 95vw;
+        width: 95vw;
     }
 }
 
@@ -2836,9 +2840,6 @@ md-dialog {
         flex-direction: column;
         gap: 0.5rem;
         border-bottom: 1px solid var(--md-sys-color-outline);
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
     }
 
     .nav-links.active {

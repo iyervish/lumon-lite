@@ -70,46 +70,14 @@ export function createTransformationAnimation() {
         // Set up continuous animation
         animationInterval = setInterval(animate, 4000);
 
-        // Add click handler for video modal
-        const handleClick = () => {
-            try {
-                showYouTubeModal();
-            } catch (error) {
-                Logger.error(`${MODULE_NAME}: Error showing YouTube modal`, error);
-            }
+        // Return cleanup function
+        return () => {
+            clearInterval(animationInterval);
+            clearTimeout(animationTimeout);
         };
         
-        container.addEventListener('click', handleClick);
-
-        // Register cleanup function
-        const cleanup = () => {
-            try {
-                Logger.debug(`${MODULE_NAME}: Cleaning up transformation animation`);
-                
-                if (animationInterval) {
-                    clearInterval(animationInterval);
-                    animationInterval = null;
-                }
-                
-                if (animationTimeout) {
-                    clearTimeout(animationTimeout);
-                    animationTimeout = null;
-                }
-                
-                container.removeEventListener('click', handleClick);
-                
-                Logger.info(`${MODULE_NAME}: Transformation animation cleanup completed`);
-            } catch (error) {
-                Logger.error(`${MODULE_NAME}: Error during transformation animation cleanup`, error);
-            }
-        };
-
-        // Register with global cleanup
-        registerCleanup(cleanup);
-        
-        return cleanup;
     } catch (error) {
-        Logger.error(`${MODULE_NAME}: Failed to initialize transformation animation`, error);
+        Logger.error(`${MODULE_NAME}: Error in createTransformationAnimation`, error);
         throw error;
     }
 }
