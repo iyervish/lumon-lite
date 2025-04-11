@@ -204,26 +204,6 @@ if (memorySlider && memoryValue) {
     });
 }
 
-// Load YouTube IFrame API
-function loadYouTubeAPI() {
-    if (window.YT) {
-        return Promise.resolve();
-    }
-    
-    return new Promise((resolve, reject) => {
-        // Create YouTube API script
-        const tag = document.createElement('script');
-        tag.src = 'https://www.youtube.com/iframe_api';
-        const firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        
-        // Setup callback for when API is ready
-        window.onYouTubeIframeAPIReady = () => {
-            resolve();
-        };
-    });
-}
-
 function showYouTubeModal() {
     // Create Material Web dialog
     const dialog = document.createElement('md-dialog');
@@ -276,9 +256,8 @@ function showYouTubeModal() {
                         height: 100%;
                         border: none;
                     "
-                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1"
+                    src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?autoplay=1&modestbranding=1&rel=0&showinfo=0&controls=1&origin=http://localhost:5173"
                     title="YouTube video"
-                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
