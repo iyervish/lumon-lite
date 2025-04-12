@@ -186,19 +186,107 @@ function selectPlan(plan) {
 
 // Pricing Functions
 function activatePlan(plan) {
+    console.log(`activatePlan: Creating activation dialog for plan ${plan}`);
     const dialog = document.createElement('dialog');
     dialog.className = 'activation-dialog elevation-1';
+    dialog.setAttribute('type', 'modal');
+    
+    // Add inline styles to force center positioning with improved design
+    dialog.style.position = 'fixed';
+    dialog.style.top = '50%';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translate(-50%, -50%)';
+    dialog.style.margin = '0';
+    dialog.style.width = '600px'; // Increased from 550px
+    dialog.style.minWidth = '500px'; // Increased from 450px
+    dialog.style.maxWidth = '95vw';
+    dialog.style.maxHeight = '90vh';
+    dialog.style.zIndex = '1000';
+    dialog.style.padding = '0';
+    dialog.style.borderRadius = '28px';
+    dialog.style.backgroundColor = 'var(--md-sys-color-surface)';
+    dialog.style.border = 'none';
+    dialog.style.boxShadow = '0 24px 48px rgba(0, 0, 0, 0.25), 0 12px 24px rgba(0, 0, 0, 0.2)';
+    
+    console.log(`activatePlan: Dialog element created with class: ${dialog.className} and type: ${dialog.getAttribute('type')}`);
     dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Activating Your Plan</h3>
-            <div class="activation-progress">
-                <md-linear-progress value="0"></md-linear-progress>
-                <p class="activation-status">Initializing personality partition...</p>
+        <div class="dialog-content" style="
+            background: linear-gradient(to bottom right, var(--md-sys-color-surface), var(--md-sys-color-surface-container-highest));
+            padding: 56px; // Increased from 48px
+            width: 100%;
+            border-radius: 28px;
+            border-left: 4px solid var(--md-sys-color-primary);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        ">
+            <h3 style="
+                font-size: 32px;
+                margin: 0;
+                background: linear-gradient(to right, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 600;
+            ">Activating Your Plan</h3>
+            <div class="activation-progress" style="width: 100%; margin: 16px 0;">
+                <md-linear-progress value="0" style="width: 100%; height: 8px;"></md-linear-progress>
+                <p class="activation-status" style="
+                    margin-top: 16px;
+                    font-size: 16px;
+                    color: var(--md-sys-color-on-surface-variant);
+                ">Initializing personality partition...</p>
             </div>
         </div>
     `;
     document.body.appendChild(dialog);
+    console.log(`activatePlan: Dialog appended to body. Current dialog position:`, {
+        offsetTop: dialog.offsetTop,
+        offsetLeft: dialog.offsetLeft,
+        clientWidth: dialog.clientWidth,
+        clientHeight: dialog.clientHeight
+    });
+    
+    // Check computed styles before showing
+    const computedStyle = window.getComputedStyle(dialog);
+    console.log(`activatePlan: Dialog computed style before showModal():`, {
+        position: computedStyle.position,
+        top: computedStyle.top,
+        left: computedStyle.left,
+        transform: computedStyle.transform,
+        display: computedStyle.display
+    });
+    
     dialog.showModal();
+    
+    // Apply styles again after showModal in case they were overridden
+    dialog.style.position = 'fixed';
+    dialog.style.top = '50%';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translate(-50%, -50%)';
+    dialog.style.backgroundColor = 'var(--md-sys-color-surface)';
+    
+    // Log position after showModal
+    setTimeout(() => {
+        const afterStyle = window.getComputedStyle(dialog);
+        console.log(`activatePlan: Dialog computed style AFTER showModal():`, {
+            position: afterStyle.position,
+            top: afterStyle.top,
+            left: afterStyle.left,
+            transform: afterStyle.transform,
+            display: afterStyle.display
+        });
+        
+        // Check if CSS selector for type=modal is applied
+        console.log(`activatePlan: Is CSS for md-dialog[type="modal"] applied:`, {
+            position: afterStyle.position === 'fixed',
+            centered: (afterStyle.top === '50%' && afterStyle.left === '50%'),
+            transformed: afterStyle.transform.includes('translate(-50%, -50%)'),
+            fullSize: (afterStyle.width === '100vw' && afterStyle.height === '100vh')
+        });
+    }, 0);
 
     const progressBar = dialog.querySelector('md-linear-progress');
     const statusText = dialog.querySelector('.activation-status');
@@ -220,18 +308,180 @@ function activatePlan(plan) {
 }
 
 function showActivationSuccess(plan) {
+    console.log(`showActivationSuccess: Creating success dialog for plan ${plan}`);
     const dialog = document.createElement('dialog');
     dialog.className = 'success-dialog elevation-1';
+    dialog.setAttribute('type', 'modal');
+    
+    // Add inline styles to force center positioning with improved design
+    dialog.style.position = 'fixed';
+    dialog.style.top = '50%';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translate(-50%, -50%)';
+    dialog.style.margin = '0';
+    dialog.style.width = '600px'; // Increased from 550px
+    dialog.style.minWidth = '500px'; // Increased from 450px
+    dialog.style.maxWidth = '95vw';
+    dialog.style.maxHeight = '90vh';
+    dialog.style.zIndex = '1000';
+    dialog.style.padding = '0';
+    dialog.style.borderRadius = '28px';
+    dialog.style.backgroundColor = 'var(--md-sys-color-surface)';
+    dialog.style.border = 'none';
+    dialog.style.boxShadow = '0 24px 48px rgba(0, 0, 0, 0.25), 0 12px 24px rgba(0, 0, 0, 0.2)';
+    
+    console.log(`showActivationSuccess: Dialog element created with class: ${dialog.className} and type: ${dialog.getAttribute('type')}`);
     dialog.innerHTML = `
-        <div class="dialog-content">
-            <h3>Activation Complete!</h3>
-            <p>Your ${plan.toUpperCase()} plan has been successfully activated. Your innie will be ready for work tomorrow morning.</p>
-            <p class="success-note">Remember: What happens at work stays at work. Literally.</p>
-            <md-filled-button onclick="this.closest('dialog').close()">Close</md-filled-button>
+        <div class="dialog-content" style="
+            background: linear-gradient(to bottom right, var(--md-sys-color-surface), var(--md-sys-color-surface-container-highest));
+            padding: 56px; // Increased from 48px
+            width: 100%;
+            border-radius: 28px;
+            border-left: 4px solid var(--md-sys-color-primary);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+        ">
+            <h3 style="
+                font-size: 32px;
+                margin: 0;
+                background: linear-gradient(to right, var(--md-sys-color-primary), var(--md-sys-color-secondary));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                font-weight: 600;
+            ">Activation Complete!</h3>
+            
+            <div style="
+                width: 64px;
+                height: 64px;
+                border-radius: 50%;
+                background-color: var(--md-sys-color-primary-container);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 8px 0;
+            ">
+                <span style="
+                    font-size: 32px;
+                    color: var(--md-sys-color-primary);
+                ">✓</span>
+            </div>
+            
+            <p style="
+                font-size: 18px;
+                line-height: 1.6;
+                color: var(--md-sys-color-on-surface);
+                margin: 0;
+            ">Your ${plan.toUpperCase()} plan has been successfully activated. Your innie will be ready for work tomorrow morning.</p>
+            
+            <p class="success-note" style="
+                font-style: italic;
+                color: var(--md-sys-color-on-surface-variant);
+                margin: 4px 0 24px 0;
+                font-size: 16px;
+            ">Remember: What happens at work stays at work. Literally.</p>
+            
+            <md-filled-button style="
+                --md-filled-button-container-shape: 24px;
+                --md-filled-button-container-height: 40px;
+                --md-filled-button-container-width: 180px;
+                font-weight: 500;
+            " onclick="this.closest('dialog').close()">Close</md-filled-button>
         </div>
     `;
     document.body.appendChild(dialog);
+    console.log(`showActivationSuccess: Dialog appended to body. Current dialog position:`, {
+        offsetTop: dialog.offsetTop,
+        offsetLeft: dialog.offsetLeft,
+        clientWidth: dialog.clientWidth,
+        clientHeight: dialog.clientHeight
+    });
+    
+    // Check if dialog has the correct styling
+    console.log(`showActivationSuccess: Dialog has type attribute:`, dialog.hasAttribute('type'));
+    console.log(`showActivationSuccess: Dialog has type value:`, dialog.getAttribute('type'));
+    
+    // Check computed styles before showing
+    const computedStyle = window.getComputedStyle(dialog);
+    console.log(`showActivationSuccess: Dialog computed style before showModal():`, {
+        position: computedStyle.position,
+        top: computedStyle.top,
+        left: computedStyle.left,
+        transform: computedStyle.transform,
+        display: computedStyle.display
+    });
+    
     dialog.showModal();
+    
+    // Apply styles again after showModal in case they were overridden
+    dialog.style.position = 'fixed';
+    dialog.style.top = '50%';
+    dialog.style.left = '50%';
+    dialog.style.transform = 'translate(-50%, -50%)';
+    dialog.style.backgroundColor = 'var(--md-sys-color-surface)';
+    
+    // Log position after showModal
+    setTimeout(() => {
+        // Log DOM structure to check parent-child relationships
+        console.log(`showActivationSuccess: DOM structure check:`, {
+            dialogParent: dialog.parentElement.tagName,
+            dialogChildren: dialog.children.length,
+            dialogContentElement: dialog.querySelector('.dialog-content') ? 'found' : 'missing'
+        });
+        
+        // Check if the dialog matches the CSS selectors we have in styles.css
+        console.log(`showActivationSuccess: CSS selector matching:`, {
+            matchesTypeModal: window.matchMedia('md-dialog[type="modal"]').matches,
+            matchesSuccessDialog: window.matchMedia('.success-dialog').matches,
+            matchesElevation1: window.matchMedia('.elevation-1').matches,
+            // Check specific selector that should trigger the dialog positioning
+            matchesMostSpecificSelector: window.matchMedia('md-dialog[type="modal"] .dialog-content').matches
+        });
+        
+        const afterStyle = window.getComputedStyle(dialog);
+        console.log(`showActivationSuccess: Dialog computed style AFTER showModal():`, {
+            position: afterStyle.position,
+            top: afterStyle.top,
+            left: afterStyle.left,
+            transform: afterStyle.transform,
+            display: afterStyle.display
+        });
+        
+        // Check for CSS classes applied
+        console.log(`showActivationSuccess: Dialog element after showing:`, {
+            className: dialog.className,
+            classList: Array.from(dialog.classList)
+        });
+        
+        // Check if CSS selector for type=modal is applied
+        console.log(`showActivationSuccess: Is CSS for md-dialog[type="modal"] applied:`, {
+            position: afterStyle.position === 'fixed',
+            centered: (afterStyle.top === '50%' && afterStyle.left === '50%'),
+            transformed: afterStyle.transform.includes('translate(-50%, -50%)'),
+            fullSize: (afterStyle.width === '100vw' && afterStyle.height === '100vh')
+        });
+        
+        // Check dialog content styling
+        const dialogContent = dialog.querySelector('.dialog-content');
+        if (dialogContent) {
+            const contentStyle = window.getComputedStyle(dialogContent);
+            console.log(`showActivationSuccess: Dialog content styling:`, {
+                position: contentStyle.position,
+                background: contentStyle.background,
+                padding: contentStyle.padding,
+                width: contentStyle.width,
+                maxWidth: contentStyle.maxWidth,
+                minHeight: contentStyle.minHeight,
+                borderRadius: contentStyle.borderRadius,
+                margin: contentStyle.margin
+            });
+        } else {
+            console.error(`showActivationSuccess: Dialog content element not found!`);
+        }
+    }, 0);
 }
 
 // Animate metrics when they come into view
